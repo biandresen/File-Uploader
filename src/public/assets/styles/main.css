@@ -7,12 +7,56 @@
 button {
   border: none;
   cursor: pointer;
+  padding: 5px 0;
+  border-radius: var(--r-2xl);
   background-color: var(--color-btn);
   color: var(--color-text-2);
   font-family: var(--ff-heading);
+  font-size: var(--fs-24);
 }
 a {
   cursor: pointer;
+}
+input {
+  border: none;
+  margin-bottom: 15px;
+  background-color: var(--color-secondary);
+  border-radius: var(--r-2xl);
+  font-size: var(--fs-20);
+  height: 40px;
+  font-weight: bold;
+  text-indent: 10px;
+  color: var(--color-text-2);
+}
+input:focus {
+  outline: 2px solid var(--color-text-1);
+}
+label {
+  position: relative;
+  top: 39px;
+  left: 12px;
+  font-family: var(--ff-heading);
+  font-size: var(--fs-24);
+  transition: top 0.6s ease-in-out;
+}
+.error-wrapper {
+  background-color: var(--color-error);
+  border-radius: var(--r-3xl);
+  margin: 0px 0px 15px 0px;
+  padding: 20px;
+  color: var(--color-text-2);
+  font-weight: bold;
+}
+.error-wrapper > ul {
+  list-style-position: inside;
+  list-style-type: none;
+}
+.error-wrapper > ul > li:before {
+  content: "!";
+  display: inline-block;
+  margin-right: 5px;
+  color: var(--color-text-2);
+  font-size: inherit;
 }
 
 body {
@@ -60,6 +104,10 @@ nav {
   transition: height 0.4s ease-in-out;
   border-bottom-left-radius: var(--r-l);
   border-bottom-right-radius: var(--r-l);
+  z-index: 100;
+}
+nav.open {
+  border-bottom: 5px solid var(--color-text-1);
 }
 nav > ul {
   display: flex;
@@ -74,8 +122,60 @@ nav > ul > button:hover {
   text-decoration: underline;
 }
 
+#register-section {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-3xl);
+  margin: 20px 10px;
+  padding: 20px 20px 5px 20px;
+  background-color: var(--color-primary);
+}
+#register-section > h2 {
+  text-align: center;
+  font-family: var(--ff-heading);
+  font-size: var(--fs-42);
+}
+#register-section > form {
+  display: flex;
+  flex-direction: column;
+}
+#register-section > a {
+  text-align: center;
+  font-size: var(--fs-14);
+  font-weight: bold;
+  margin: 20px 0;
+}
+#register-btn {
+  margin-top: 35px;
+  will-change: transform;
+}
+#register-btn:hover,
+#register-btn:focus {
+  animation: pulse-shadow 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-btn);
+  }
+  50% {
+    box-shadow: 0 0 0 4px var(--color-btn);
+  }
+  100% {
+    box-shadow: 0 0 0 0 var(--color-btn);
+  }
+}
+
 footer {
   flex: 1;
   margin-top: auto;
   max-height: 70px;
+  min-height: 70px;
+  background-color: var(--color-primary);
+  font-weight: bold;
+}
+footer > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

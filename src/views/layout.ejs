@@ -4,30 +4,81 @@
   <body>
     <%- include("./partials/header.ejs") %>
     <!--  -->
-    <main id="home-page">
+    <main id="home-page" hidden>
       <div class="wrapper">
-        <h1>Home</h1>
+        <h2>Home</h2>
       </div>
     </main>
 
-    <main id="register-page" hidden>
+    <main id="register-page">
       <div class="wrapper">
-        <h1>Register</h1>
+        <section id="register-section">
+          <h2>Register</h2>
+          <form method="post" action="/register" id="register-form">
+            <label for="email">EMAIL</label>
+            <input id="email" name="email" type="text" required autofocus />
+
+            <label for="password">PASSWORD</label>
+            <input id="password" name="password" type="text" required />
+
+            <label for="confirmPassword">CONFIRM PASSWORD</label>
+            <input id="confirmPassword" name="confirmPassword" type="text" required />
+
+            <div class="error-wrapper" hidden>
+              <ul class="error-list">
+                <li>Error test</li>
+                <li>Error test</li>
+                <li>Error test</li>
+                <li>Error test</li>
+              </ul>
+            </div>
+            <button id="register-btn" type="submit">REGISTER</button>
+          </form>
+          <a href="/login">
+            <p>Already have an account? Login here!</p>
+          </a>
+        </section>
       </div>
     </main>
 
     <main id="login-page" hidden>
       <div class="wrapper">
-        <h1>Login</h1>
+        <h2>Login</h2>
       </div>
     </main>
 
     <main id="about-page" hidden>
       <div class="wrapper">
-        <h1>About</h1>
+        <h2>About</h2>
       </div>
     </main>
     <!--  -->
     <%- include("./partials/footer.ejs") %>
   </body>
 </html>
+
+<script>
+  const inputsEl = document.querySelectorAll("input");
+  const labelsEl = document.querySelectorAll("label");
+
+  inputsEl.forEach((el) => {
+    el.addEventListener("focusin", handleFocusIn);
+    el.addEventListener("focusout", handleFocusOut);
+  });
+
+  function handleFocusIn(e) {
+    const inputEl = e.target;
+    const labelEl = Array.from(labelsEl).find((el) => el.getAttribute("for") === inputEl.id); // Find the matching label
+    if (inputEl.value === "") {
+      labelEl.style.top = "0px";
+    }
+  }
+
+  function handleFocusOut(e) {
+    const inputEl = e.target;
+    const labelEl = Array.from(labelsEl).find((el) => el.getAttribute("for") === inputEl.id); // Find the matching label
+    if (inputEl.value === "") {
+      labelEl.style.top = "39px";
+    }
+  }
+</script>

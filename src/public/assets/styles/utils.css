@@ -36,6 +36,8 @@
   --r-m: 8px;
   --r-l: 12px;
   --r-xl: 20px;
+  --r-2xl: 30px;
+  --r-3xl: 40px;
   --r-max: 100%;
 }
 
@@ -43,9 +45,9 @@
   width: 100%;
   padding: 0 10px;
   max-width: 350px;
-  /* height: auto; */
+  height: 100%;
   margin: 0 auto;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 
 h1,
