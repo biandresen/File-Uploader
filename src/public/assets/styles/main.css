@@ -122,7 +122,8 @@ nav > ul > button:hover {
   text-decoration: underline;
 }
 
-#register-section {
+#register-section,
+#login-section {
   display: flex;
   flex-direction: column;
   border-radius: var(--r-3xl);
@@ -130,27 +131,34 @@ nav > ul > button:hover {
   padding: 20px 20px 5px 20px;
   background-color: var(--color-primary);
 }
-#register-section > h2 {
+#register-section > h2,
+#login-section > h2 {
   text-align: center;
   font-family: var(--ff-heading);
   font-size: var(--fs-42);
 }
-#register-section > form {
+#register-section > form,
+#login-section > form {
   display: flex;
   flex-direction: column;
 }
-#register-section > a {
+#register-section > a,
+#login-section > a {
   text-align: center;
   font-size: var(--fs-14);
   font-weight: bold;
   margin: 20px 0;
+  text-decoration: underline;
 }
-#register-btn {
+#register-btn,
+#login-btn {
   margin-top: 35px;
   will-change: transform;
 }
 #register-btn:hover,
-#register-btn:focus {
+#register-btn:focus,
+#login-btn:hover,
+#login-btn:focus {
   animation: pulse-shadow 1.4s ease-in-out infinite;
 }
 
