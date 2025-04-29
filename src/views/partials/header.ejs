@@ -1,14 +1,19 @@
 <header>
-  <div>
-    <a href="/">
-      <img src="filesky-icon.png" alt="" />
-      <p>FILESKY</p>
-    </a>
+  <div class="wrapper">
+    <div id="header__brand">
+      <a href="/">
+        <img src="/assets/icons/filesky-icon.png" alt="" />
+        <p>FILESKY</p>
+      </a>
+    </div>
+    <button id="menu-btn" class="icon-btn">
+      <img src="assets/icons/menu.svg" alt="" />
+    </button>
     <nav>
-      <ul>
-        <button>
+      <ul role="list">
+        <button class="icon-btn">
           <li>
-            <img src="" alt="" />
+            <img src="assets/icons/theme.svg" alt="" />
           </li>
         </button>
         <a>
@@ -24,3 +29,19 @@
     </nav>
   </div>
 </header>
+
+<script>
+  const navEl = document.querySelector("nav");
+  const menuEl = document.querySelector("#menu-btn");
+
+  menuEl.addEventListener("click", toggleMenu);
+
+  function toggleMenu() {
+    navEl.classList.toggle("open");
+    if (navEl.classList.contains("open")) {
+      navEl.style.height = navEl.scrollHeight + "px";
+    } else {
+      navEl.style.height = "0px";
+    }
+  }
+</script>

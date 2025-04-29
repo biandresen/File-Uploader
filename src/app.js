@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("layout");
 });
 
 app.listen(port, () => {

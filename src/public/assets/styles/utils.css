@@ -1,0 +1,60 @@
+:root {
+  /* Colors */
+  --color-bg: #80b7ff;
+  --color-primary: #3674b5;
+  --color-secondary: #578fca;
+  --color-btn: #ffa065;
+  --color-text-1: #f1f1f1;
+  --color-text-2: #1f1f1f;
+  --color-text-placeholder: #cfcfcf;
+  --color-error: #ff6565;
+
+  /* Font-family */
+  --ff-heading: "Chewy", "sans-serif";
+  --ff-body: "Quicksand", "sans-serif";
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* Font sizes */
+  --fs-11: 0.6875rem; /* 11px */
+  --fs-14: 0.875rem; /* 14px */
+  --fs-16: 1rem; /* 16px */
+  --fs-20: 1.25rem; /* 20px */
+  --fs-24: 1.5rem; /* 24px */
+  --fs-28: 1.75rem; /* 28px */
+  --fs-32: 2rem; /* 32px */
+  --fs-42: 2.625rem; /* 42px */
+  --fs-48: 3rem; /* 48px */
+
+  /* Border radius */
+  --r-s: 4px;
+  --r-m: 8px;
+  --r-l: 12px;
+  --r-xl: 20px;
+  --r-max: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 0 10px;
+  max-width: 350px;
+  /* height: auto; */
+  margin: 0 auto;
+  outline: 1px solid red;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}

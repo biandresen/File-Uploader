@@ -1,0 +1,81 @@
+@import url(./reset.css);
+@import url(./utils.css);
+
+.icon-btn {
+  background-color: transparent;
+}
+button {
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-btn);
+  color: var(--color-text-2);
+  font-family: var(--ff-heading);
+}
+a {
+  cursor: pointer;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  color: var(--color-text-1);
+  font-size: var(--font-base);
+  font-family: var(--ff-body);
+}
+main {
+  flex: 1;
+}
+
+header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  max-height: 70px;
+  background-color: var(--color-primary);
+}
+header > div {
+  display: flex;
+  justify-content: space-between;
+}
+#header__brand > a {
+  display: flex;
+  align-items: center;
+}
+#header__brand > a > p {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-42);
+}
+#header__brand > a > img {
+  width: 80px;
+}
+nav {
+  position: absolute;
+  top: 70px;
+  margin-left: -10px;
+  width: 350px;
+  height: 0px;
+  overflow: hidden;
+  background-color: var(--color-primary);
+  transition: height 0.4s ease-in-out;
+  border-bottom-left-radius: var(--r-l);
+  border-bottom-right-radius: var(--r-l);
+}
+nav > ul {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0 10px 10px;
+  font-size: var(--fs-20);
+  font-weight: bold;
+}
+nav > ul > a:hover,
+nav > ul > button:hover {
+  filter: brightness(1.05);
+  text-decoration: underline;
+}
+
+footer {
+  flex: 1;
+  margin-top: auto;
+  max-height: 70px;
+}
