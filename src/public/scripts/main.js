@@ -1,7 +1,7 @@
 // SPA PAGE NAVIGATION
 // Build pages map from DOM
 const pages = {};
-document.querySelectorAll("[data-page]").forEach((el) => {
+document.querySelectorAll("main[data-page]").forEach((el) => {
   pages[el.dataset.page] = el;
 });
 
