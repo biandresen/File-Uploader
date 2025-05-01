@@ -1,47 +1,25 @@
 <header>
   <div class="wrapper">
     <div id="header__brand">
-      <a href="/">
+      <a data-link="page" href="/">
         <img src="/assets/icons/filesky-icon.png" alt="" />
         <p>FILESKY</p>
       </a>
     </div>
     <button id="menu-btn" class="icon-btn">
-      <img src="assets/icons/menu.svg" alt="" />
+      <img src="/assets/icons/menu.svg" alt="" />
     </button>
     <nav>
       <ul role="list">
         <button class="icon-btn">
           <li>
-            <img src="assets/icons/theme.svg" alt="" />
+            <img data-btn="theme" src="/assets/icons/theme.svg" alt="" />
           </li>
         </button>
-        <a>
-          <li>Register</li>
-        </a>
-        <a>
-          <li>Login</li>
-        </a>
-        <a>
-          <li>About</li>
-        </a>
+        <li><a data-link="page" href="/register">Register</a></li>
+        <li><a data-link="page" href="/login">Login</a></li>
+        <li><a data-link="page" href="/about">About</a></li>
       </ul>
     </nav>
   </div>
 </header>
-
-<script>
-  const navEl = document.querySelector("nav");
-  const menuEl = document.querySelector("#menu-btn");
-
-  menuEl.addEventListener("click", toggleMenu);
-
-  function toggleMenu() {
-    navEl.classList.toggle("open");
-    if (navEl.classList.contains("open")) {
-      navEl.style.height = navEl.scrollHeight + "px";
-    } else {
-      navEl.style.height = "0px";
-    }
-  }
-</script>

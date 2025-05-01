@@ -72,6 +72,8 @@ main {
 }
 
 header {
+  position: sticky;
+  top: 0;
   flex: 1;
   display: flex;
   align-items: center;
@@ -101,7 +103,7 @@ nav {
   height: 0px;
   overflow: hidden;
   background-color: var(--color-primary);
-  transition: height 0.4s ease-in-out;
+  transition: height 0.3s ease-in-out;
   border-bottom-left-radius: var(--r-l);
   border-bottom-right-radius: var(--r-l);
   z-index: 100;

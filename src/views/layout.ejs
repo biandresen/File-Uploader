@@ -4,13 +4,13 @@
   <body>
     <%- include("./partials/header.ejs") %>
     <!--  -->
-    <main id="home-page" hidden>
+    <main id="home-page" data-page="/" hidden>
       <div class="wrapper">
         <h2>Home</h2>
       </div>
     </main>
 
-    <main id="register-page" hidden>
+    <main id="register-page" data-page="/register" hidden>
       <div class="wrapper">
         <section id="register-section">
           <h2>Register</h2>
@@ -57,7 +57,7 @@
       </div>
     </main>
 
-    <main id="login-page" hidden>
+    <main id="login-page" data-page="/login" hidden>
       <div class="wrapper">
         <section id="login-section">
           <h2>Login</h2>
@@ -82,7 +82,7 @@
       </div>
     </main>
 
-    <main id="about-page">
+    <main id="about-page" data-page="/about" hidden>
       <div class="wrapper">
         <section id="about-section">
           <h2>About</h2>
@@ -114,6 +114,14 @@
               built for you.
             </p>
           </article>
+        </section>
+      </div>
+    </main>
+
+    <main id="error-page" data-page="/page-not-found" hidden>
+      <div class="wrapper">
+        <section id="about-section">
+          <h2>404 Error</h2>
         </section>
       </div>
     </main>
