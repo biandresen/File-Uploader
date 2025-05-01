@@ -1,47 +1,47 @@
 // LABEL ANIMATION
-function handlePathChange() {
-  const path = window.location.pathname;
+let labelsInitialized = false;
+window.onload = () => {
+  initLabelHandlers("register");
+  labelsInitialized = false;
+  initLabelHandlers("login");
+};
 
-  if (path === "/register" || path === "/login") {
-    initLabelHandlers(path.slice(1)); // 'register' or 'login'
-  }
+function initLabelHandlers(pageName) {
+  if (labelsInitialized) return; // Skip if already initialized to avoid several event attachments
+
+  const inputs = document.querySelectorAll(`input[data-page="${pageName}"]`);
+  const labels = document.querySelectorAll(`label[data-page="${pageName}"]`);
+
+  inputs.forEach((el) => {
+    el.addEventListener("focusin", (e) => {
+      handleFocusIn(e, labels);
+    });
+    el.addEventListener("focusout", (e) => handleFocusOut(e, labels));
+  });
+
+  console.log("INIT");
+  // Move label up if input already has a value
+  inputs.forEach((input) => {
+    const label = Array.from(labels).find((el) => el.getAttribute("for") === input.id);
+    if (input.value !== "") moveLabelUp(label);
+  });
+
+  labelsInitialized = true;
 }
-
-// Call on load
-handlePathChange();
-
-// Listen for URL changes (back/forward navigation)
-window.addEventListener("popstate", handlePathChange);
 
 const moveLabelUp = (label) => (label.style.top = "0px");
 const moveLabelDown = (label) => (label.style.top = "39px");
 
-export function initLabelHandlers(pageName) {
-  const inputs = document.querySelectorAll(`input[data-page="${pageName}"]`);
-  const labels = document.querySelectorAll(`label[data-page="${pageName}"]`);
+function handleFocusIn(e, labels) {
+  const input = e.target;
+  const label = Array.from(labels).find((el) => el.getAttribute("for") === input.id);
+  if (input.value === "") moveLabelUp(label);
+}
 
-  function handleFocusIn(e) {
-    const input = e.target;
-    const label = Array.from(labels).find((el) => el.getAttribute("for") === input.id);
-    if (input.value === "") moveLabelUp(label);
-  }
-
-  function handleFocusOut(e) {
-    const input = e.target;
-    const label = Array.from(labels).find((el) => el.getAttribute("for") === input.id);
-    if (input.value === "") moveLabelDown(label);
-  }
-
-  inputs.forEach((el) => {
-    el.addEventListener("focusin", handleFocusIn);
-    el.addEventListener("focusout", handleFocusOut);
-  });
-
-  // When the page is shown, move label up if input has value
-  inputs.forEach((el) => {
-    const label = Array.from(labels).find((el) => el.getAttribute("for") === el.id);
-    if (el.value !== "") moveLabelUp(label);
-  });
+function handleFocusOut(e, labels) {
+  const input = e.target;
+  const label = Array.from(labels).find((el) => el.getAttribute("for") === input.id);
+  if (input.value === "") moveLabelDown(label);
 }
 
 // LABEL ANIMATION-----------------------------------------------------
