@@ -1,13 +1,14 @@
 import { validationResult } from "express-validator";
+import CustomError from "../utils/CustomError.js";
 
 const validateRequest = (req, res, next) => {
   const errors = validationResult(req);
+  const errorMessages = errors.array().map((error) => error.msg);
+  console.log(errorMessages);
 
   if (!errors.isEmpty()) {
-    return res.status(400).json({
-      status: "fail",
-      message: errors.array(),
-    });
+    const error = new CustomError(400, errorMessages);
+    return next(error);
   }
 
   next();

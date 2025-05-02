@@ -1,3 +1,5 @@
+import { navigate } from "./main.js";
+
 // LABEL ANIMATION
 let labelsInitialized = false;
 window.onload = () => {
@@ -44,60 +46,68 @@ function handleFocusOut(e, labels) {
 }
 // LABEL ANIMATION-----------------------------------------------------
 
-// REGISTER
 const baseUrl = "http://localhost:3000";
+const successModal = document.querySelector("#success-modal");
+
+// REGISTER
 const registerForm = document.querySelector("#register-form");
 const registerErrorWrapper = document.querySelector("#register-error-wrapper");
 const registerErrorList = document.querySelector("#register-error-list");
-const registerSuccessModal = document.querySelector("#register-success-modal");
+const registerEmail = document.querySelector("#registerEmail");
+const registerPassword = document.querySelector("#registerPassword");
+const registerConfirmPassword = document.querySelector("#registerConfirmPassword");
 
-registerForm.addEventListener("submit", handleRegister);
+registerForm.addEventListener("submit", handleRegistration);
 
-async function handleRegister(e) {
+async function handleRegistration(e) {
   e.preventDefault();
 
-  const registerEmail = document.querySelector("#registerEmail");
-  const registerPassword = document.querySelector("#registerPassword");
-  const registerConfirmPassword = document.querySelector("#registerConfirmPassword");
+  try {
+    const response = await fetch(baseUrl + "/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: registerEmail.value,
+        password: registerPassword.value,
+        confirmPassword: registerConfirmPassword.value,
+      }),
+    });
 
-  const response = await fetch(baseUrl + "/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: registerEmail.value,
-      password: registerPassword.value,
-      confirmPassword: registerConfirmPassword.value,
-    }),
-  });
+    const registerResponseData = await response.json();
 
-  const registerData = await response.json();
+    registerErrorList.innerHTML = ""; //clear error field
 
-  if (response.ok) {
-    handleRegisterSuccess(registerData);
-    setTimeout(async () => {
-      registerSuccessModal.close();
-      await autoLogin(registerEmail.value, registerPassword.value);
-      resetInputs(registerEmail, registerPassword, registerConfirmPassword);
-    }, 3000);
-  } else handleRegisterFail(registerData);
+    if (response.ok) {
+      handleRegisterSuccess(registerResponseData);
+
+      setTimeout(async () => {
+        successModal.close();
+        await handleLogin(registerEmail.value, registerPassword.value);
+        resetInputs(registerEmail, registerPassword, registerConfirmPassword);
+      }, 2000);
+      //
+    } else handleRegisterFail(registerResponseData);
+    //
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function handleRegisterSuccess(data) {
   console.log("Success:", data);
-  registerErrorList.innerHTML = "";
   registerErrorWrapper.hidden = true;
-  registerSuccessModal.showModal();
+  successModal.innerHTML = "<p>Registration successful! 🎉</p><p>Trying to login...</p>";
+  successModal.showModal();
 }
 
 function handleRegisterFail(data) {
-  console.error("Error:", data);
-  registerErrorList.innerHTML = "";
+  console.error("Fail:", data);
   resetInputs(registerPassword, registerConfirmPassword);
-  const errorMessages = Array.isArray(data.message) ? data.message : [data.message];
+  const errorMessages = data?.message[0].split(",");
   const listItems = createErrorListItems(errorMessages);
-  registerErrorWrapper.hidden = false;
+  registerErrorWrapper.hidden = false; //display error field
   registerErrorList.append(...listItems);
 }
 
@@ -105,7 +115,7 @@ function createErrorListItems(errorMessages) {
   const listItems = [];
   errorMessages.forEach((msg) => {
     const listItem = document.createElement("li");
-    listItem.textContent = msg.msg || msg;
+    listItem.textContent = msg;
     listItems.push(listItem);
   });
   return listItems;
@@ -115,31 +125,65 @@ function resetInputs(...inputs) {
   inputs.forEach((input) => (input.value = ""));
 }
 // LOGIN
-import { navigate } from "./main.js";
 
-async function autoLogin(email, password) {
-  console.log(email, password);
+const loginForm = document.querySelector("#login-form");
+const loginErrorWrapper = document.querySelector("#login-error-wrapper");
+const loginErrorList = document.querySelector("#login-error-list");
+const loginEmail = document.querySelector("#loginEmail");
+const loginPassword = document.querySelector("#loginPassword");
 
-  const response = await fetch(baseUrl + "/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
+loginForm.addEventListener("submit", handleLogin);
 
-  const loginData = await response.json();
-  console.log(loginData);
+async function handleLogin(e = null, registerEmail, registerPassword) {
+  e.preventDefault();
+  const email = loginEmail.value || registerEmail;
+  const password = loginPassword.value || registerPassword;
 
-  if (response.ok) {
-    console.log("Success");
-    navigate("/");
-    // handleLoginSuccess(loginData);
-  } else {
-    console.log("Fail");
-    // handleLoginFail(loginData);
+  try {
+    const response = await fetch(baseUrl + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const loginData = await response.json();
+
+    loginErrorList.innerHTML = ""; //clear error field
+
+    if (response.ok) {
+      handleLoginSuccess(loginData);
+      resetInputs(loginEmail, loginPassword);
+      setTimeout(async () => {
+        successModal.close();
+      }, 2000);
+    } else {
+      handleLoginFail(loginData);
+      resetInputs(loginPassword);
+    }
+  } catch (err) {
+    console.error(err);
   }
 }
+
+function handleLoginSuccess(data) {
+  console.log("Success", data);
+  loginErrorWrapper.hidden = true;
+  successModal.innerHTML = "<p>Login successful! 🎉</p><p>Redirecting to your Dashboard...</p>";
+  navigate("/"); //to homepage/dashboard
+  successModal.showModal();
+}
+
+function handleLoginFail(data) {
+  console.error("Fail", data);
+  navigate("/login");
+  const errorMessages = data?.message[0].split(",");
+  const listItems = createErrorListItems(errorMessages);
+  loginErrorWrapper.hidden = false; //display error field
+  loginErrorList.append(...listItems);
+}
+// LOGIN------------------------------------------------------------------------

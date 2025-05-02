@@ -31,7 +31,7 @@ async function verify(email, password, done) {
   console.log("Logging in...");
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) return done(null, false, { message: "User not found" });
+    if (!user) return done(null, false, { message: "Incorrect credentials" });
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) return done(null, false, { message: "Incorrect credentials" });

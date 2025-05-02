@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import session from "express-session";
 import passport from "./utils/passportConfig.js";
 import authRouter from "./routes/authRouter.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use("/", authRouter);
 app.all("*", (req, res) => {
   res.render("layout");
 });
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running in *${process.env.NODE_ENV}* mode on port ${port}...`);

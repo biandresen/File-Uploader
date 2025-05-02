@@ -10,24 +10,15 @@
       </div>
     </main>
 
-    <dialog id="register-success-modal" class="modal">
-      <p>Registration successful! 🎉</p>
-      <p>Trying to log you in...</p>
-    </dialog>
+    <dialog id="success-modal" class="modal"></dialog>
+
     <main id="register-page" data-page="/register" hidden>
       <div class="wrapper">
         <section id="register-section">
           <h2>Register</h2>
           <form id="register-form">
             <label data-page="register" for="registerEmail">EMAIL</label>
-            <input
-              data-page="register"
-              id="registerEmail"
-              name="registerEmail"
-              type="text"
-              required
-              autofocus
-            />
+            <input data-page="register" id="registerEmail" name="registerEmail" type="email" required />
 
             <label data-page="register" for="registerPassword">PASSWORD</label>
             <input
@@ -48,6 +39,7 @@
             />
 
             <div id="register-error-wrapper" class="error-wrapper" hidden>
+              <p class="error-heading">ERRORS:</p>
               <ul id="register-error-list" class="error-list"></ul>
             </div>
             <button id="register-btn" type="submit">REGISTER</button>
@@ -63,17 +55,16 @@
       <div class="wrapper">
         <section id="login-section">
           <h2>Login</h2>
-          <form method="post" action="/login" id="login-form">
+          <form id="login-form">
             <label data-page="login" for="loginEmail">EMAIL</label>
-            <input data-page="login" id="loginEmail" name="loginEmail" type="text" required autofocus />
+            <input data-page="login" id="loginEmail" name="loginEmail" type="email" required />
 
             <label data-page="login" for="loginPassword">PASSWORD</label>
             <input data-page="login" id="loginPassword" name="loginPassword" type="password" required />
 
-            <div class="error-wrapper" hidden>
-              <ul class="error-list">
-                <li>Error test</li>
-              </ul>
+            <div id="login-error-wrapper" class="error-wrapper" hidden>
+              <p class="error-heading">ERRORS:</p>
+              <ul id="login-error-list" class="error-list"></ul>
             </div>
             <button id="login-btn" type="submit">LOGIN</button>
           </form>

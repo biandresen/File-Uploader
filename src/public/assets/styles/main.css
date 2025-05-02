@@ -58,6 +58,32 @@ label {
   color: var(--color-text-2);
   font-size: inherit;
 }
+.error-heading {
+  font-size: var(--fs-16);
+  font-weight: bold;
+  text-decoration: underline;
+}
+.modal {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  translate: -50% -50%;
+  text-align: center;
+  max-width: calc(var(--app-width-s) - 40px);
+  max-height: 250px;
+  background-color: var(--color-btn);
+  color: var(--color-text-2);
+  font-weight: bold;
+  font-size: var(--fs-20);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: blur(10px);
+}
 
 body {
   display: flex;
@@ -124,27 +150,6 @@ nav > ul > button:hover {
   text-decoration: underline;
 }
 
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  text-align: center;
-  max-width: calc(var(--app-width-s) - 40px);
-  max-height: 250px;
-  background-color: var(--color-btn);
-  color: var(--color-text-2);
-  font-weight: bold;
-  font-size: var(--fs-20);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.modal::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  filter: blur(10px);
-}
 #register-section,
 #login-section,
 #about-section {

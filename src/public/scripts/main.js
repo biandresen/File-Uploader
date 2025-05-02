@@ -5,6 +5,16 @@ document.querySelectorAll("main[data-page]").forEach((el) => {
   pages[el.dataset.page] = el;
 });
 
+function focusFirstInputInVisibleMain() {
+  const visibleMain = document.querySelector("main:not([hidden])");
+  if (!visibleMain) return;
+
+  const firstInput = visibleMain.querySelector("input");
+  if (firstInput) {
+    firstInput.focus();
+  }
+}
+
 // Navigate with history
 export function navigate(path) {
   const validPath = pages[path] ? path : "/page-not-found";
@@ -19,6 +29,7 @@ function navigateToPage(path) {
 
   const targetPage = pages[path] || pages["/page-not-found"];
   targetPage.hidden = false; // Show target page
+  focusFirstInputInVisibleMain();
   window.scrollTo({ top: 0, behavior: "smooth" }); // Auto-scroll to top
 }
 
