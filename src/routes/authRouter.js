@@ -7,6 +7,6 @@ import loginValidation from "../validation/loginValidation.js";
 const router = express.Router();
 
 router.post("/register", registerValidation, validateRequest, authController.register);
-// router.post("/login", loginValidation, validateRequest, authController.login);
+router.post("/login", loginValidation, validateRequest, authController.login);
 
 export default router;

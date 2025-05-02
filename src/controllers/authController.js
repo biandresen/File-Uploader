@@ -1,12 +1,12 @@
-import { hashPassword, comparePassword } from "../utils/encryption.js";
+import { hashPassword } from "../utils/encryption.js";
+import passport from "passport";
 import { matchedData } from "express-validator";
 import prisma from "../db/client.js";
 
 const authController = {
   register: async (req, res, next) => {
     console.log("Registering...");
-    const { registerEmail: email, registerPassword: password } = matchedData(req);
-    console.log(email, password);
+    const { email, password } = matchedData(req);
 
     // check if email already exists, if so send fail response with custom error
     const emailExists = await prisma.user.findUnique({ where: { email } });
@@ -36,6 +36,27 @@ const authController = {
     });
 
     console.log("Register done: User registered successfully");
+  },
+
+  login: (req, res, next) => {
+    console.log("Logging in...");
+    passport.authenticate("local", (err, user, message) => {
+      if (err) return next(err);
+      if (!user)
+        return res.status(400).json({
+          status: "fail",
+          message,
+        });
+
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        return res.json({
+          status: "success",
+          user,
+        });
+      });
+      console.log("Login done");
+    })(req, res, next);
   },
 };
 

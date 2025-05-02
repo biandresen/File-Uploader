@@ -10,11 +10,15 @@
       </div>
     </main>
 
+    <dialog id="register-success-modal" class="modal">
+      <p>Registration successful! 🎉</p>
+      <p>Trying to log you in...</p>
+    </dialog>
     <main id="register-page" data-page="/register" hidden>
       <div class="wrapper">
         <section id="register-section">
           <h2>Register</h2>
-          <form method="post" action="/register" id="register-form">
+          <form id="register-form">
             <label data-page="register" for="registerEmail">EMAIL</label>
             <input
               data-page="register"
@@ -43,10 +47,8 @@
               required
             />
 
-            <div class="error-wrapper" hidden>
-              <ul class="error-list">
-                <li>Error test</li>
-              </ul>
+            <div id="register-error-wrapper" class="error-wrapper" hidden>
+              <ul id="register-error-list" class="error-list"></ul>
             </div>
             <button id="register-btn" type="submit">REGISTER</button>
           </form>

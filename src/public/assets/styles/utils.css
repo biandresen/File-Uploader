@@ -39,12 +39,18 @@
   --r-2xl: 30px;
   --r-3xl: 40px;
   --r-max: 100%;
+
+  --app-width-s: 350px;
+  --app-width-m: 500px;
+  --app-width-l: 768px;
+  --app-width-xl: 1000px;
+  --app-width-2xl: 1300px;
 }
 
 .wrapper {
   width: 100%;
   padding: 0 10px;
-  max-width: 350px;
+  max-width: var(--app-width-s);
   height: 100%;
   margin: 0 auto;
   /* outline: 1px solid red; */

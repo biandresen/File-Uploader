@@ -56,3 +56,10 @@ model Session {
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int?
 }
+
+// model Session {
+//   id        String   @id
+//   sid       String   @unique
+//   data      String   @db.MediumText  // MediumText may be needed for MySql
+//   expiresAt   DateTime
+// }

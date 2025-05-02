@@ -6,7 +6,7 @@ document.querySelectorAll("main[data-page]").forEach((el) => {
 });
 
 // Navigate with history
-function navigate(path) {
+export function navigate(path) {
   const validPath = pages[path] ? path : "/page-not-found";
   history.pushState({}, "", validPath); // Sets the path in browser
   navigateToPage(validPath);
