@@ -1,4 +1,7 @@
 import { navigate } from "./main.js";
+import { baseUrl } from "./main.js";
+import { homePath, registerPath, loginPath } from "./main.js";
+import { modal } from "./main.js";
 
 // LABEL ANIMATION
 let labelsInitialized = false;
@@ -46,9 +49,6 @@ function handleFocusOut(e, labels) {
 }
 // LABEL ANIMATION-----------------------------------------------------
 
-const baseUrl = "http://localhost:3000";
-const successModal = document.querySelector("#success-modal");
-
 // REGISTER
 const registerForm = document.querySelector("#register-form");
 const registerErrorWrapper = document.querySelector("#register-error-wrapper");
@@ -63,7 +63,7 @@ async function handleRegistration(e) {
   e.preventDefault();
 
   try {
-    const response = await fetch(baseUrl + "/register", {
+    const response = await fetch(baseUrl + registerPath, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,10 +83,10 @@ async function handleRegistration(e) {
       handleRegisterSuccess(registerResponseData);
 
       setTimeout(async () => {
-        successModal.close();
+        modal.close();
         await handleLogin(registerEmail.value, registerPassword.value);
         resetInputs(registerEmail, registerPassword, registerConfirmPassword);
-      }, 2000);
+      }, 2500);
       //
     } else handleRegisterFail(registerResponseData);
     //
@@ -98,8 +98,8 @@ async function handleRegistration(e) {
 function handleRegisterSuccess(data) {
   console.log("Success:", data);
   registerErrorWrapper.hidden = true;
-  successModal.innerHTML = "<p>Registration successful! 🎉</p><p>Trying to login...</p>";
-  successModal.showModal();
+  modal.innerHTML = "<p>Registration successful! 🎉</p><p>Trying to login...</p>";
+  modal.showModal();
 }
 
 function handleRegisterFail(data) {
@@ -140,7 +140,7 @@ async function handleLogin(e = null, registerEmail, registerPassword) {
   const password = loginPassword.value || registerPassword;
 
   try {
-    const response = await fetch(baseUrl + "/login", {
+    const response = await fetch(baseUrl + loginPath, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -159,8 +159,8 @@ async function handleLogin(e = null, registerEmail, registerPassword) {
       handleLoginSuccess(loginData);
       resetInputs(loginEmail, loginPassword);
       setTimeout(async () => {
-        successModal.close();
-      }, 2000);
+        modal.close();
+      }, 2500);
     } else {
       handleLoginFail(loginData);
       resetInputs(loginPassword);
@@ -173,14 +173,14 @@ async function handleLogin(e = null, registerEmail, registerPassword) {
 function handleLoginSuccess(data) {
   console.log("Success", data);
   loginErrorWrapper.hidden = true;
-  successModal.innerHTML = "<p>Login successful! 🎉</p><p>Redirecting to your Dashboard...</p>";
-  navigate("/"); //to homepage/dashboard
-  successModal.showModal();
+  modal.innerHTML = "<p>Login successful! 🎉</p><p>Redirecting to your Dashboard...</p>";
+  navigate(homePath); //to homepage/dashboard
+  modal.showModal();
 }
 
 function handleLoginFail(data) {
   console.error("Fail", data);
-  navigate("/login");
+  navigate(loginPath);
   const errorMessages = data?.message[0].split(",");
   const listItems = createErrorListItems(errorMessages);
   loginErrorWrapper.hidden = false; //display error field

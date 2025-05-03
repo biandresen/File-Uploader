@@ -60,6 +60,15 @@ const authController = {
       console.log("Login done");
     })(req, res, next);
   },
+
+  checkAuth: (req, res) => {
+    if (req.isAuthenticated()) {
+      const { password, ...safeUser } = req.user;
+      res.json({ loggedIn: true, user: safeUser }); //No password sent to frontend
+    } else {
+      res.json({ loggedIn: false });
+    }
+  },
 };
 
 export default authController;
