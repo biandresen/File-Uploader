@@ -6,7 +6,96 @@
     <!--  -->
     <main id="home-page" data-page="/" hidden>
       <div class="wrapper">
-        <h2>Home</h2>
+        <section id="dashboard-section">
+          <div class="row-wrapper">
+            <h2>YOUR SKY</h2>
+            <button id="create-new-btn" type="button">
+              <img src="/assets/icons/plus.svg" alt="new file/folder" />
+            </button>
+            <button id="dashboard-nav-btn" type="button">
+              <img src="/assets/icons/triangle.svg" alt="folder navigation" />
+            </button>
+          </div>
+          <div id="dashboard-container">
+            <nav style="display: none" id="dashboard__nav" class="column-wrapper">
+              <ul>
+                <div class="row-wrapper">
+                  <img src="" alt="folder" />
+                  <li>Folder-name</li>
+                  <button type="button">
+                    <img src="" alt="edit" />
+                  </button>
+                </div>
+                <div class="row-wrapper">
+                  <img src="" alt="folder" />
+                  <li>Folder-name</li>
+                  <button type="button">
+                    <img src="" alt="edit" />
+                  </button>
+                </div>
+              </ul>
+            </nav>
+            <section id="dashboard-content" class="column-wrapper">
+              <div id="content-orders" class="row-wrapper">
+                <div class="row-wrapper">
+                  <p>Name</p>
+                  <button type="button">
+                    <img src="/assets/icons/arrow.svg" alt="order by name" />
+                  </button>
+                </div>
+                <div class="row-wrapper">
+                  <p>Qty</p>
+                  <button type="button">
+                    <img src="/assets/icons/arrow.svg" alt="order by quantity" />
+                  </button>
+                </div>
+                <div class="row-wrapper">
+                  <p>Created</p>
+                  <button type="button">
+                    <img src="/assets/icons/arrow.svg" alt="order by created" />
+                  </button>
+                </div>
+                <div class="row-wrapper">
+                  <p>Size</p>
+                  <button type="button">
+                    <img src="/assets/icons/arrow.svg" alt="order by file size" />
+                  </button>
+                </div>
+              </div>
+              <div class="column-wrapper">
+                <ul role="list" id="content-list" class="row-wrapper">
+                  <div class="column-wrapper">
+                    <div class="file row-wrapper">
+                      <img src="/assets/icons/folder.svg" alt="folder" />
+                      <li>Folder/file-name</li>
+                      <button id="file-expand-btn" type="button">
+                        <img class="triangle" src="/assets/icons/triangle.svg" alt="edit" />
+                      </button>
+                    </div>
+                    <div class="file-menu column-wrapper">
+                      <div class="row-wrapper">
+                        <p>4</p>
+                        <p>03.04.2025</p>
+                        <p>10kb</p>
+                      </div>
+                      <div class="row-wrapper">
+                        <button id="file-download-btn" type="button">
+                          <img src="/assets/icons/download.svg" alt="" />
+                        </button>
+                        <button id="file-edit-btn" type="button">
+                          <img src="/assets/icons/edit.svg" alt="" />
+                        </button>
+                        <button id="file-delete-btn" type="button">
+                          <img src="/assets/icons/trash.svg" alt="" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </section>
       </div>
     </main>
 

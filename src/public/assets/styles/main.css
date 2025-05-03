@@ -122,7 +122,7 @@ header > div {
 #header__brand > a > img {
   width: 80px;
 }
-nav {
+#header__nav {
   position: fixed;
   top: 70px;
   margin-left: -10px;
@@ -134,18 +134,18 @@ nav {
   border-bottom-left-radius: var(--r-l);
   border-bottom-right-radius: var(--r-l);
 }
-nav.open {
+#header__nav.open {
   border-bottom: 5px solid var(--color-text-1);
 }
-nav > ul {
+#header__nav > ul {
   display: flex;
   flex-direction: column;
   padding: 5px 0 10px 10px;
   font-size: var(--fs-20);
   font-weight: bold;
 }
-nav > ul > a:hover,
-nav > ul > button:hover {
+#header__nav > ul > a:hover,
+#header__nav > ul > button:hover {
   filter: brightness(1.05);
   text-decoration: underline;
 }
@@ -245,6 +245,75 @@ nav > ul > button:hover {
 #page-not-found-section > button {
   margin-top: 20px;
   font-weight: normal;
+}
+
+#dashboard-section {
+  padding-bottom: 20px;
+  border-radius: var(--r-3xl);
+  margin: 20px 10px;
+  padding: 20px;
+  background-color: var(--color-primary);
+}
+#dashboard-section > div {
+  justify-content: space-between;
+}
+#dashboard-section > div > h2 {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-42);
+}
+#dashboard-section > div > button {
+  background-color: transparent;
+  rotate: 90deg;
+  margin: 0 5px 5px 0;
+}
+#create-new-btn {
+  background-color: var(--color-btn) !important;
+  padding: 8px;
+}
+#dashboard-container {
+  background-color: var(--color-secondary);
+  border-radius: var(--r-xl);
+  padding: 10px 10px 20px 10px;
+}
+#dashboard-content {
+  font-weight: 600;
+}
+#content-orders {
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+#content-orders div button {
+  background-color: transparent;
+  rotate: 180deg;
+}
+#content-list {
+  margin-bottom: 15px;
+}
+#content-list > div {
+  flex: 1;
+  padding: 5px 10px 0px 5px;
+  background-color: var(--color-primary);
+  border-radius: var(--r-m);
+}
+#content-list button {
+  background-color: transparent;
+}
+.file {
+  border-bottom: 2px solid var(--color-secondary);
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+.file > button {
+  margin-left: auto;
+  rotate: 180deg;
+}
+.file-menu > div {
+  margin-left: auto;
+  gap: 20px;
+  font-size: var(--fs-14);
+}
+.file-menu > div > p:first-child {
+  margin-right: 20px;
 }
 
 footer {
