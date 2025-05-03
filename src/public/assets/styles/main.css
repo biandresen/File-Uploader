@@ -316,6 +316,39 @@ header > div {
   margin-right: 20px;
 }
 
+#dashboard-nav {
+  position: absolute;
+  left: 20px;
+  top: 168px;
+  z-index: 50;
+  padding: 10px;
+  font-weight: bold;
+  width: calc(var(--app-width-s) - 60px);
+  background-color: var(--color-secondary);
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: var(--r-xl);
+  border-bottom-right-radius: var(--r-xl);
+  box-shadow: 2px 1px 5px var(--color-shadow);
+}
+#dashboard-nav > div {
+  justify-content: space-between;
+}
+#dashboard-nav > div > button {
+  rotate: -90deg;
+  margin-left: 20px;
+}
+#dashboard-nav > ul div {
+  background-color: var(--color-primary);
+  margin-bottom: 10px;
+  padding: 2px;
+  border-radius: var(--r-m);
+  gap: 5px;
+}
+#dashboard-nav > ul div > button {
+  margin: 0 5px 0 auto;
+}
+
 footer {
   flex: 1;
   margin-top: auto;

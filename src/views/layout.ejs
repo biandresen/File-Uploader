@@ -9,28 +9,34 @@
         <section id="dashboard-section">
           <div class="row-wrapper">
             <h2>YOUR SKY</h2>
-            <button id="create-new-btn" type="button">
+            <button id="create-new-btn" class="icon-btn" type="button">
               <img src="/assets/icons/plus.svg" alt="new file/folder" />
             </button>
-            <button id="dashboard-nav-btn" type="button">
+            <button id="dashboard-nav-btn" class="icon-btn" type="button">
               <img src="/assets/icons/triangle.svg" alt="folder navigation" />
             </button>
           </div>
           <div id="dashboard-container">
-            <nav style="display: none" id="dashboard__nav" class="column-wrapper">
-              <ul>
+            <nav id="dashboard-nav" class="column-wrapper hide">
+              <div class="row-wrapper">
+                <h2>Top Folders</h2>
+                <button id="top-folders-nav-btn" class="icon-btn" type="button">
+                  <img src="/assets/icons/triangle.svg" alt="folder navigation" />
+                </button>
+              </div>
+              <ul role="list">
                 <div class="row-wrapper">
-                  <img src="" alt="folder" />
+                  <img src="/assets/icons/folder.svg" alt="folder" />
                   <li>Folder-name</li>
-                  <button type="button">
-                    <img src="" alt="edit" />
+                  <button type="button" class="icon-btn edit-name-btn">
+                    <img src="/assets/icons/edit.svg" alt="edit" />
                   </button>
                 </div>
                 <div class="row-wrapper">
-                  <img src="" alt="folder" />
+                  <img src="/assets/icons/folder.svg" alt="folder" />
                   <li>Folder-name</li>
-                  <button type="button">
-                    <img src="" alt="edit" />
+                  <button type="button" class="icon-btn edit-name-btn">
+                    <img src="/assets/icons/edit.svg" alt="edit" />
                   </button>
                 </div>
               </ul>
@@ -39,25 +45,25 @@
               <div id="content-orders" class="row-wrapper">
                 <div class="row-wrapper">
                   <p>Name</p>
-                  <button type="button">
+                  <button type="button" class="icon-btn sort-btn">
                     <img src="/assets/icons/arrow.svg" alt="order by name" />
                   </button>
                 </div>
                 <div class="row-wrapper">
                   <p>Qty</p>
-                  <button type="button">
+                  <button type="button" class="icon-btn sort-btn">
                     <img src="/assets/icons/arrow.svg" alt="order by quantity" />
                   </button>
                 </div>
                 <div class="row-wrapper">
                   <p>Created</p>
-                  <button type="button">
+                  <button type="button" class="icon-btn sort-btn">
                     <img src="/assets/icons/arrow.svg" alt="order by created" />
                   </button>
                 </div>
                 <div class="row-wrapper">
                   <p>Size</p>
-                  <button type="button">
+                  <button type="button" class="icon-btn sort-btn">
                     <img src="/assets/icons/arrow.svg" alt="order by file size" />
                   </button>
                 </div>
