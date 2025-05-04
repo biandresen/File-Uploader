@@ -61,7 +61,25 @@ const authController = {
     })(req, res, next);
   },
 
+  logout: (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        const error = new CustomError(500, err.message);
+        return next(error);
+      }
+
+      req.session.destroy(() => {
+        res.clearCookie("connect.sid"); // name depends on your session config
+        res.status(200).json({
+          status: "success",
+          message: "Logged out",
+        });
+      });
+    });
+  },
+
   checkAuth: (req, res) => {
+    console.log("CHECKING AUTH");
     if (req.isAuthenticated()) {
       const { password, ...safeUser } = req.user;
       res.json({ loggedIn: true, user: safeUser }); //No password sent to frontend

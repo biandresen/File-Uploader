@@ -1,0 +1,47 @@
+import { $, $create } from "./utils.js";
+const modalElement = $("#modal");
+
+const modal = {
+  /**
+   * Shows a modal for a set time with one or more messages
+   * @param {number} time - Time in ms to show the modal
+   * @param {string} heading - Heading text (h3)
+   * @param {...string} messages - Additional message strings (p)
+   */
+  showTimedModal(time, heading, ...messages) {
+    modalElement.innerHTML = "";
+
+    const h3 = $create("h3");
+    h3.textContent = heading;
+    modalElement.appendChild(h3);
+
+    messages.forEach((message) => {
+      const p = $create("p");
+      p.textContent = message;
+      modalElement.appendChild(p);
+    });
+
+    modalElement.showModal();
+    setTimeout(() => modalElement.close(), time);
+  },
+
+  show(messages) {
+    modalElement.innerHTML = "";
+
+    if (!Array.isArray(messages)) return console.error("Needs to be an array");
+
+    messages.forEach((message) => {
+      const p = $create("p");
+      p.textContent = message;
+      modalElement.appendChild(p);
+    });
+
+    modalElement.showModal();
+  },
+
+  close() {
+    modalElement.close();
+  },
+};
+
+export default modal;

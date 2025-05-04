@@ -74,6 +74,13 @@
   display: none;
 }
 
+.label-up {
+  top: 0px;
+}
+.label-down {
+  top: 39px;
+}
+
 h1,
 h2,
 h3,
