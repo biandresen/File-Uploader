@@ -17,13 +17,16 @@ export function renderDashboard() {
   user.data.forEach((topFolder) => {
     const topFolderItem = $create("li");
 
-    const topFolderRowWrapper = $create("div");
-    topFolderRowWrapper.classList.add("row-wrapper");
-    topFolderRowWrapper.dataset.id = topFolder.id;
+    const topFolderRowWrapper = $create("div", {
+      class: ["row-wrapper"],
+      data: { id: topFolder.id },
+    });
 
-    const topFolderShowBtn = $create("button");
-    topFolderShowBtn.dataset.id = topFolder.id;
-    topFolderShowBtn.classList.add("icon-btn", "show-content-btn");
+    const topFolderShowBtn = $create("button", {
+      class: ["icon-btn", "show-content-btn"],
+      data: { id: topFolder.id },
+    });
+
     topFolderShowBtn.addEventListener("click", (e) => {
       const isActive = topFolderRowWrapper.classList.contains("folder-highlight");
       if (isActive || isEditing) return;
@@ -42,21 +45,17 @@ export function renderDashboard() {
       topFolderRowWrapper.classList.add("folder-highlight");
     });
 
-    const topFolderIcon = $create("img");
-    topFolderIcon.src = ICONPATH.FOLDER;
+    const topFolderIcon = $create("img", { src: ICONPATH.FOLDER });
 
-    const topFolderName = $create("span");
-    topFolderName.textContent = topFolder.name;
-    topFolderName.classList.add(topFolder.name);
+    const topFolderName = $create("span", { class: [topFolder.name], text: topFolder.name });
 
-    const topFolderEditBtn = $create("button");
-    topFolderEditBtn.type = "button";
-    topFolderEditBtn.classList.add("icon-btn", "edit-name-btn");
+    const topFolderEditBtn = $create("button", { class: ["icon-btn", "edit-name-btn"] });
 
     topFolderEditBtn.addEventListener("click", async (e) => {
       isEditing = true;
 
       const editBtn = e.target.closest(".edit-name-btn");
+
       if (editBtn) {
         editBtn.classList.add("hide");
         const wrapper = editBtn.closest(".row-wrapper");
@@ -66,26 +65,26 @@ export function renderDashboard() {
         const folderId = wrapper.dataset.id;
 
         // Replace span with input + ok button
-        const input = document.createElement("input");
-        input.type = "text";
-        input.value = oldName;
-        input.classList.add("rename-input");
+        const input = $create("input", {
+          type: "text",
+          value: oldName,
+          class: ["rename-input"],
+        });
 
-        const okBtn = document.createElement("button");
-        okBtn.textContent = "OK";
-        okBtn.classList.add("ok-btn");
+        const okBtn = $create("button", {
+          text: "OK",
+          class: ["ok-btn"],
+        });
 
         const spanParent = span.parentElement;
         span.classList.add("hide");
         spanParent.append(input, okBtn);
 
-        // When OK is clicked
         okBtn.addEventListener("click", async () => {
           const newName = input.value.trim();
           if (!newName || newName === oldName) return;
 
           try {
-            // Send PATCH to your API (adjust URL & payload)
             const response = await fetch(PATH.BASEURL + PATH.FOLDER_NAMEPATCH + folderId, {
               method: "PATCH",
               headers: {
@@ -117,8 +116,7 @@ export function renderDashboard() {
       }
     });
 
-    const editIcon = $create("img");
-    editIcon.src = ICONPATH.EDIT;
+    const editIcon = $create("img", { src: ICONPATH.EDIT });
 
     // Assemble
     topFolderShowBtn.append(topFolderIcon, topFolderName);
@@ -147,15 +145,14 @@ function assembleContentItem(content, folder) {
   // Create structure
   const contentItem = $create("li");
 
-  const contentColumnWrapper = $create("div");
-  contentColumnWrapper.classList.add("column-wrapper");
+  const contentColumnWrapper = $create("div", { class: ["column-wrapper"] });
 
-  const contentFileWrapper = $create("div");
-  contentFileWrapper.classList.add("file", "row-wrapper");
+  const contentFileWrapper = $create("div", { class: ["file", "row-wrapper"] });
 
-  const contentShowBtn = $create("button");
-  contentShowBtn.dataset.btn = content.name;
-  contentShowBtn.classList.add("icon-btn", "show-content-btn");
+  const contentShowBtn = $create("button", {
+    class: ["icon-btn", "show-content-btn"],
+    data: { btn: content.name },
+  });
 
   folder &&
     contentShowBtn.addEventListener("click", () => {
@@ -163,7 +160,7 @@ function assembleContentItem(content, folder) {
     });
 
   const contentImg = $create("img");
-  contentImg.alt = "folder";
+
   if (content?.files || content?.children) {
     contentImg.src = ICONPATH.FOLDER;
   } else if (folder) {
@@ -175,19 +172,13 @@ function assembleContentItem(content, folder) {
   const contentSpan = $create("span");
   contentSpan.textContent = `${content.name}${content.extension ? "." + content.extension : ""}`;
 
-  const contentExpandBtn = $create("button");
-  contentExpandBtn.classList.add("icon-btn", "file-expand-btn");
+  const contentExpandBtn = $create("button", { class: ["icon-btn", "file-expand-btn"] });
 
-  const contentExpandIcon = $create("img");
-  contentExpandIcon.classList.add("triangle");
-  contentExpandIcon.src = ICONPATH.TRIANGLE;
-  contentExpandIcon.alt = "expand";
+  const contentExpandIcon = $create("img", { class: ["triangle"], src: ICONPATH.TRIANGLE });
 
-  const contentFileMenu = $create("div");
-  contentFileMenu.classList.add("file-menu", "column-wrapper");
+  const contentFileMenu = $create("div", { class: ["file-menu", "column-wrapper"] });
 
-  const contentRowWrapper = $create("div");
-  contentRowWrapper.classList.add("row-wrapper");
+  const contentRowWrapper = $create("div", { class: ["row-wrapper"] });
 
   const contentQty = $create("p");
   contentQty.textContent = content.files?.length ?? " ";
@@ -196,17 +187,11 @@ function assembleContentItem(content, folder) {
   contentCreated.textContent = content.createdAt?.split("T")[0] ?? "-";
 
   const contentSize = $create("p");
-
   contentSize.textContent = folder ? " ----- " : (content.size.toFixed(1) + "kb" ?? " ----- ");
 
-  const contentRowWrapper2 = $create("div");
-  contentRowWrapper2.classList.add("row-wrapper");
-
-  const contentDownloadBtn = $create("button");
-  contentDownloadBtn.classList.add("icon-btn", "download-btn");
-  const contentDownloadIcon = $create("img");
-  contentDownloadIcon.src = ICONPATH.DOWNLOAD;
-  contentDownloadIcon.alt = "Download";
+  const contentRowWrapper2 = $create("div", { class: ["row-wrapper"] });
+  const contentDownloadBtn = $create("button", { class: ["icon-btn", "download-btn"] });
+  const contentDownloadIcon = $create("img", { src: ICONPATH.DOWNLOAD });
 
   !folder &&
     contentDownloadBtn.addEventListener("click", () => {
@@ -214,17 +199,11 @@ function assembleContentItem(content, folder) {
       getFile(downloadLink);
     });
 
-  const contentEditBtn = $create("button");
-  contentEditBtn.classList.add("icon-btn", "edit-name-btn");
-  const contentEditIcon = $create("img");
-  contentEditIcon.src = ICONPATH.EDIT;
-  contentEditIcon.alt = "Edit";
+  const contentEditBtn = $create("button", { class: ["icon-btn", "edit-name-btn"] });
+  const contentEditIcon = $create("img", { src: ICONPATH.EDIT });
 
-  const contentDeleteBtn = $create("button");
-  contentDeleteBtn.classList.add("icon-btn", "delete-btn");
-  const contentDeleteIcon = $create("img");
-  contentDeleteIcon.src = ICONPATH.DELETE;
-  contentDeleteIcon.alt = "Delete";
+  const contentDeleteBtn = $create("button", { class: ["icon-btn", "delete-btn"] });
+  const contentDeleteIcon = $create("img", { src: ICONPATH.DELETE });
 
   // Assemble
   contentShowBtn.append(contentImg, contentSpan);
@@ -268,15 +247,11 @@ async function getFile(link) {
 
 function downloadFile(blob, filename) {
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = $create("a");
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url); // Clean up memory
-}
-
-async function editName(content) {
-  const currentName = content.name;
 }

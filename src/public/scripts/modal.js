@@ -11,13 +11,11 @@ const modal = {
   showTimedModal(time, heading, ...messages) {
     modalElement.innerHTML = "";
 
-    const h3 = $create("h3");
-    h3.textContent = heading;
+    const h3 = $create("h3", { text: heading });
     modalElement.appendChild(h3);
 
     messages.forEach((message) => {
-      const p = $create("p");
-      p.textContent = message;
+      const p = $create("p", { text: message });
       modalElement.appendChild(p);
     });
 
@@ -31,8 +29,7 @@ const modal = {
     if (!Array.isArray(messages)) return console.error("Needs to be an array");
 
     messages.forEach((message) => {
-      const p = $create("p");
-      p.textContent = message;
+      const p = $create("p", { text: message });
       modalElement.appendChild(p);
     });
 

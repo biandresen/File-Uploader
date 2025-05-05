@@ -39,10 +39,34 @@ export const $all = (selector) => {
 };
 
 /**
- * Shorthand for document.create(el)
- * @param {string} selector
- * @returns {Element}
+ * Shorthand for creating elements with classes, data or appending children
+ * @param {String} tag
+ * @param {Object} options
+ * @returns the inserted element type
  */
-export const $create = (selector) => document.createElement(selector);
+export function $create(tag, options = {}) {
+  const element = document.createElement(tag);
+  Object.entries(options).forEach(([key, value]) => {
+    if (key === "class") {
+      element.classList.add(...value);
+    } else if (key === "data") {
+      Object.entries(value).forEach(([dataKey, dataValue]) => {
+        element.dataset[dataKey] = dataValue;
+      });
+    } else if (key === "text") {
+      element.textContent = value;
+    } else if (key === "src") {
+      element.src = value;
+    } else if (key === "type") {
+      element[key] = value;
+    } else if (key === "children") {
+      value.forEach((child) => element.appendChild(child));
+    } else {
+      element[key] = value;
+    }
+  });
+
+  return element;
+}
 
 export const dataToArray = (data) => data?.message[0].split(",") || [];
