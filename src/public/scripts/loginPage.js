@@ -5,6 +5,7 @@ import { navigate } from "./router.js";
 import nav from "./nav.js";
 import { resetInputs, createErrorListItems } from "./utils.js";
 import { dataToArray, $ } from "./utils.js";
+import { renderDashboard } from "./dashboardPage.js";
 
 const loginForm = $("#login-form");
 const loginErrorWrapper = $("#login-error-wrapper");
@@ -31,7 +32,6 @@ export async function handleLogin(e, registerEmail, registerPassword) {
     });
 
     const data = await response.json();
-    console.log("DATA: ", data);
     loginErrorList.innerHTML = "";
 
     if (response.ok) return handleLoginSuccess(data);
@@ -42,16 +42,17 @@ export async function handleLogin(e, registerEmail, registerPassword) {
 }
 
 async function handleLoginSuccess(data) {
-  console.log("Success", data);
+  console.log("LOGIN Success", data);
   loginErrorWrapper.hidden = true;
   modal.showTimedModal(2500, MSG.LOGIN_HEADING, MSG.LOGIN_SUCCESS, MSG.LOGIN_REDIRECT);
   resetInputs(loginEmail, loginPassword);
   nav.updateAuthState(await user.checkAuth()).render();
+  renderDashboard();
   navigate(PATH.HOME);
 }
 
 function handleLoginFail(data) {
-  console.error("Fail", data);
+  console.error("LOGIN Fail", data);
   resetInputs(loginPassword);
   navigate(PATH.LOGIN);
   const messages = dataToArray(data);

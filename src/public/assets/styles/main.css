@@ -4,6 +4,20 @@
 .icon-btn {
   background-color: transparent;
 }
+.show-content-btn {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  color: var(--color-text-1);
+  font-family: var(--ff-body);
+  font-size: var(--fs-14);
+  gap: 5px;
+  margin-right: 10px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 button {
   border: none;
   cursor: pointer;
@@ -292,28 +306,32 @@ header > div {
 }
 #content-list {
   margin-bottom: 15px;
+  gap: 10px;
 }
-#content-list > div {
+#content-list > div,
+#content-list li > div {
   flex: 1;
   padding: 5px 10px 0px 5px;
   background-color: var(--color-primary);
   border-radius: var(--r-m);
 }
+#content-list li {
+  flex: 1;
+}
 #content-list button {
   background-color: transparent;
 }
-.file {
-  border-bottom: 2px solid var(--color-secondary);
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-}
-.file > button {
+.file > button:nth-of-type(2) {
   margin-left: auto;
   rotate: 180deg;
 }
+.file-menu {
+  padding: 5px 0;
+  border-top: 2px solid var(--color-secondary);
+}
 .file-menu > div {
   margin-left: auto;
-  gap: 20px;
+  gap: 15px;
   font-size: var(--fs-14);
 }
 .file-menu > div > p:first-child {
@@ -342,14 +360,20 @@ header > div {
   rotate: -90deg;
   margin-left: 20px;
 }
-#dashboard-nav > ul div {
+#dashboard-nav ul div {
   background-color: var(--color-primary);
   margin-bottom: 10px;
   padding: 2px;
   border-radius: var(--r-m);
   gap: 5px;
+  border: 2px solid;
+  border-color: transparent;
+  transition: border-color 0.2s ease-in-out;
 }
-#dashboard-nav > ul div > button {
+.folder-highlight {
+  border-color: var(--color-text-1) !important;
+}
+#dashboard-nav > ul div button:nth-of-type(2) {
   margin: 0 5px 0 auto;
 }
 

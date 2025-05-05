@@ -1,5 +1,6 @@
 import prisma from "./client.js";
 import { faker } from "@faker-js/faker";
+import { hashPassword } from "../utils/encryption.js";
 
 // Number of users and folders/files per user
 const NUM_USERS = 3;
@@ -9,7 +10,7 @@ const FILES_PER_FOLDER = 3;
 async function createUserWithFoldersAndFiles() {
   for (let i = 0; i < NUM_USERS; i++) {
     const email = faker.internet.email().toLowerCase();
-    const password = faker.internet.password();
+    const password = await hashPassword("test123", 10);
 
     const user = await prisma.user.create({
       data: {

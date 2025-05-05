@@ -40,7 +40,7 @@ async function handleRegistration(e) {
 }
 
 async function handleRegisterSuccess(data) {
-  console.log("Success:", data);
+  console.log("REGISTER Success:", data);
   registerErrorWrapper.hidden = true; //hide error field
   modal.showTimedModal(2500, MSG.REGISTER_HEADING, MSG.REGISTER_SUCCESS, MSG.REGISTER_REDIRECT);
   await handleLogin(null, registerEmail.value, registerPassword.value); // auto-login
@@ -48,7 +48,7 @@ async function handleRegisterSuccess(data) {
 }
 
 function handleRegisterFail(data) {
-  console.error("Fail:", data);
+  console.error("REGISTER Fail:", data);
   resetInputs(registerPassword, registerConfirmPassword);
   const messages = dataToArray(data);
   const listItems = createErrorListItems(messages);

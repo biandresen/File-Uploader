@@ -4,6 +4,7 @@ import nav from "./nav.js";
 
 export const user = {
   isAuthenticated: false,
+  userInfo: null,
   data: null,
 
   async checkAuth() {
@@ -17,7 +18,7 @@ export const user = {
       });
       const data = await res.json();
       this.isAuthenticated = data.loggedIn;
-      this.data = data.user || null;
+      this.unserInfo = data.user || null;
       return this.isAuthenticated;
     } catch (err) {
       console.error("Auth check failed: ", err);
@@ -33,10 +34,21 @@ export const user = {
         credentials: "include",
       });
       this.isAuthenticated = false;
-      this.data = null;
+      this.userInfo = null;
       nav.logoutHandler();
     } catch (err) {
       console.error("Logout failed", err);
+    }
+  },
+
+  async getUserContent() {
+    try {
+      const res = await fetch(PATH.BASEURL + PATH.USERCONTENT);
+      const data = await res?.json();
+      this.data = data;
+      return data;
+    } catch (err) {
+      console.error("Error getting user content: ", err);
     }
   },
 };
