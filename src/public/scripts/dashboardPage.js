@@ -1,5 +1,5 @@
 import { user } from "./user.js";
-import { $, $all, $create } from "./utils.js";
+import { $, $create } from "./utils.js";
 import { ICONPATH } from "./constants.js";
 
 const dashboardNav = $("#dashboard-nav");
@@ -22,7 +22,12 @@ export function renderDashboard() {
     topFolderShowBtn.dataset.btn = topFolder.name;
     topFolderShowBtn.classList.add("icon-btn", "show-content-btn");
     topFolderShowBtn.addEventListener("click", (e) => {
-      renderContent(e);
+      const contentName = e.currentTarget.dataset.btn;
+      const content = user.data.find((item) => item.name === contentName);
+
+      if (!content) return;
+      renderContent(content);
+
       // Remove highlight from all row wrappers
       document
         .querySelectorAll(".row-wrapper.folder-highlight")
@@ -53,24 +58,18 @@ export function renderDashboard() {
   });
 }
 
-function renderContent(e) {
+function renderContent(content) {
   // Clear old content if needed
   contentList.innerHTML = "";
 
-  const contentName = e.currentTarget.dataset.btn;
-  const content = user.data.find((item) => item.name === contentName);
-  if (!content) return;
-
-  console.log("CONTENT: ", content);
-  console.log("CHILDREN: ", content.children);
-  console.log("FILES: ", content.files);
   const folders = content.children;
   const files = content.files;
 
-  const folderItems = folders.map((folder) => assembleContentItem(folder, true));
-  const fileItems = files.map((file) => assembleContentItem(file, false));
+  const folderItems = folders?.map((folder) => assembleContentItem(folder, true)) || [];
+  const fileItems = files?.map((file) => assembleContentItem(file, false)) || [];
 
-  contentList.append(...folderItems, ...fileItems);
+  folderItems.length && contentList.append(...folderItems);
+  fileItems.length && contentList.append(...fileItems);
 }
 
 function assembleContentItem(content, folder) {
@@ -87,9 +86,10 @@ function assembleContentItem(content, folder) {
   contentShowBtn.dataset.btn = content.name;
   contentShowBtn.classList.add("icon-btn", "show-content-btn");
 
-  // contentShowBtn.addEventListener("click", (e) => {
-  //   renderContent(e);
-  // });
+  folder &&
+    contentShowBtn.addEventListener("click", () => {
+      renderContent(content);
+    });
 
   const contentImg = $create("img");
   contentImg.alt = "folder";
@@ -137,6 +137,12 @@ function assembleContentItem(content, folder) {
   contentDownloadIcon.src = ICONPATH.DOWNLOAD;
   contentDownloadIcon.alt = "Download";
 
+  !folder &&
+    contentDownloadBtn.addEventListener("click", () => {
+      const downloadLink = content.link;
+      getFile(downloadLink);
+    });
+
   const contentEditBtn = $create("button");
   contentEditBtn.classList.add("icon-btn", "edit-name-btn");
   const contentEditIcon = $create("img");
@@ -157,7 +163,7 @@ function assembleContentItem(content, folder) {
   contentRowWrapper.append(contentQty, contentCreated, contentSize ?? null);
   contentFileMenu.append(contentRowWrapper);
 
-  if (!folder) contentDownloadBtn.append(contentDownloadIcon);
+  !folder && contentDownloadBtn.append(contentDownloadIcon);
 
   contentDeleteBtn.append(contentDeleteIcon);
   contentEditBtn.append(contentEditIcon);
@@ -169,4 +175,33 @@ function assembleContentItem(content, folder) {
   contentItem.append(contentColumnWrapper);
 
   return contentItem;
+}
+
+async function getFile(link) {
+  try {
+    const res = await fetch(link, {
+      method: "GET",
+    });
+    if (!res.ok) throw new Error("Failed to fetch file");
+
+    const blob = await res.blob();
+
+    // Try to extract a filename from the link
+    const filename = link.split("/").pop()?.split("?")[0] || "download";
+
+    downloadFile(blob, filename);
+  } catch (err) {
+    console.error("Download error:", err);
+  }
+}
+
+function downloadFile(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url); // Clean up memory
 }
