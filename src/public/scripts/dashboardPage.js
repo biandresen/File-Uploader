@@ -1,6 +1,6 @@
 import { user } from "./user.js";
 import { $, $create } from "./utils.js";
-import { ICONPATH } from "./constants.js";
+import { ICONPATH, PATH } from "./constants.js";
 
 const dashboardNav = $("#dashboard-nav");
 const topFolderList = $("#top-folder-list");
@@ -12,18 +12,24 @@ export function renderDashboard() {
 
   topFolderList.innerHTML = ""; // Optional: clear list before rendering
 
+  let isEditing = false;
+
   user.data.forEach((topFolder) => {
     const topFolderItem = $create("li");
 
     const topFolderRowWrapper = $create("div");
     topFolderRowWrapper.classList.add("row-wrapper");
+    topFolderRowWrapper.dataset.id = topFolder.id;
 
     const topFolderShowBtn = $create("button");
-    topFolderShowBtn.dataset.btn = topFolder.name;
+    topFolderShowBtn.dataset.id = topFolder.id;
     topFolderShowBtn.classList.add("icon-btn", "show-content-btn");
     topFolderShowBtn.addEventListener("click", (e) => {
-      const contentName = e.currentTarget.dataset.btn;
-      const content = user.data.find((item) => item.name === contentName);
+      const isActive = topFolderRowWrapper.classList.contains("folder-highlight");
+      if (isActive || isEditing) return;
+
+      const contentId = e.currentTarget.dataset.id;
+      const content = user.data.find((item) => item.id === Number(contentId));
 
       if (!content) return;
       renderContent(content);
@@ -41,10 +47,75 @@ export function renderDashboard() {
 
     const topFolderName = $create("span");
     topFolderName.textContent = topFolder.name;
+    topFolderName.classList.add(topFolder.name);
 
     const topFolderEditBtn = $create("button");
     topFolderEditBtn.type = "button";
     topFolderEditBtn.classList.add("icon-btn", "edit-name-btn");
+
+    topFolderEditBtn.addEventListener("click", async (e) => {
+      isEditing = true;
+
+      const editBtn = e.target.closest(".edit-name-btn");
+      if (editBtn) {
+        editBtn.classList.add("hide");
+        const wrapper = editBtn.closest(".row-wrapper");
+        const span = wrapper.querySelector("." + topFolder.name);
+
+        const oldName = span.textContent;
+        const folderId = wrapper.dataset.id;
+
+        // Replace span with input + ok button
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = oldName;
+        input.classList.add("rename-input");
+
+        const okBtn = document.createElement("button");
+        okBtn.textContent = "OK";
+        okBtn.classList.add("ok-btn");
+
+        const spanParent = span.parentElement;
+        span.classList.add("hide");
+        spanParent.append(input, okBtn);
+
+        // When OK is clicked
+        okBtn.addEventListener("click", async () => {
+          const newName = input.value.trim();
+          if (!newName || newName === oldName) return;
+
+          try {
+            // Send PATCH to your API (adjust URL & payload)
+            const response = await fetch(PATH.BASEURL + PATH.FOLDER_NAMEPATCH + folderId, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name: newName }),
+            });
+
+            if (!response.ok) throw new Error("Rename failed");
+
+            const updatedFolder = await response.json();
+
+            // Replace input with new span
+            input.remove();
+            okBtn.remove();
+
+            editBtn.classList.remove("hide");
+            span.classList.remove("hide");
+            span.textContent = updatedFolder.data.updatedFolder.name;
+
+            isEditing = false;
+
+            // Optional: refetch user data if needed
+            // await fetchUserData();
+          } catch (err) {
+            alert("Could not rename folder: " + err.message);
+          }
+        });
+      }
+    });
 
     const editIcon = $create("img");
     editIcon.src = ICONPATH.EDIT;
@@ -204,4 +275,8 @@ function downloadFile(blob, filename) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url); // Clean up memory
+}
+
+async function editName(content) {
+  const currentName = content.name;
 }

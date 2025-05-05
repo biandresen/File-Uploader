@@ -6,6 +6,8 @@ import session from "express-session";
 import passport from "./utils/passportConfig.js";
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
+import folderRouter from "./routes/folderRouter.js";
+import fileRouter from "./routes/fileRouter.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -39,6 +41,9 @@ app.use(passport.session());
 
 app.use("/", authRouter);
 app.use("/user", userRouter);
+app.use("/folder", folderRouter);
+app.use("/file", fileRouter);
+
 app.all("*", (req, res) => {
   res.render("layout");
 });

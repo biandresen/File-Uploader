@@ -6,6 +6,8 @@ export const PATH = {
   LOGIN: "/login",
   LOGOUT: "/logout",
   USERCONTENT: "/user/get-content",
+  FOLDER_NAMEPATCH: "/folder/",
+  FILE_NAMEPATCH: "/file/",
 };
 
 export const MSG = {
