@@ -20,10 +20,23 @@ const folderController = {
       data: { name },
     });
 
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
       data: updatedFolder,
     });
+  }),
+  delete: asyncErrorHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!id) {
+      return next(CustomError(400, "Folder ID is missing"));
+    }
+
+    await prisma.folder.delete({
+      where: { id: Number(id) },
+    });
+
+    res.status(204);
   }),
 };
 

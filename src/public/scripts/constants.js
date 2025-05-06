@@ -8,6 +8,8 @@ export const PATH = {
   USERCONTENT: "/user/get-content",
   FOLDER_NAMEPATCH: "/folder/",
   FILE_NAMEPATCH: "/file/",
+  FOLDER_DELETE: "/folder/",
+  FILE_DELETE: "/file/",
 };
 
 export const MSG = {

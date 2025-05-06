@@ -25,6 +25,19 @@ const fileController = {
       data: updatedFile,
     });
   }),
+  delete: asyncErrorHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!id) {
+      return next(CustomError(400, "File ID is missing"));
+    }
+
+    await prisma.file.delete({
+      where: { id: Number(id) },
+    });
+
+    res.status(204);
+  }),
 };
 
 export default fileController;

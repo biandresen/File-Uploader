@@ -1,7 +1,7 @@
 import { user } from "./user.js";
 import { $, $create } from "./utils.js";
 import { ICONPATH, PATH } from "./constants.js";
-import patchRequest from "./api/patch-api.js";
+import { patchRequest, deleteRequest } from "./api/patch-api.js";
 
 const dashboardNav = $("#dashboard-nav");
 const topFolderList = $("#top-folder-list");
@@ -34,6 +34,15 @@ export function renderDashboard() {
     const topFolderName = $create("span", { data: { id: topFolder.id }, text: topFolder.name });
     const topFolderEditBtn = $create("button", { class: ["icon-btn", "edit-name-btn"] });
     const editIcon = $create("img", { src: ICONPATH.EDIT });
+    const deleteIcon = $create("img", { src: ICONPATH.DELETE });
+    const topFolderDeleteBtn = $create("button", {
+      class: ["icon-btn", "delete-btn"],
+      data: { id: topFolder.id },
+    });
+
+    topFolderDeleteBtn.addEventListener("click", async (e) => {
+      handleDeleteContent(e, topFolder);
+    });
 
     topFolderEditBtn.addEventListener("click", async (e) => {
       handleEditName(e, topFolder, true);
@@ -58,9 +67,10 @@ export function renderDashboard() {
     });
 
     // Assemble
+    topFolderDeleteBtn.appendChild(deleteIcon);
     topFolderShowBtn.append(topFolderIcon, topFolderName);
     topFolderEditBtn.appendChild(editIcon);
-    topFolderRowWrapper.append(topFolderShowBtn, topFolderEditBtn);
+    topFolderRowWrapper.append(topFolderShowBtn, topFolderEditBtn, topFolderDeleteBtn);
     topFolderItem.appendChild(topFolderRowWrapper);
     topFolderList.appendChild(topFolderItem);
   });
@@ -70,6 +80,9 @@ function handleEditName(e, content, isTopFolder) {
   isEditing = true;
   const isFolder = content?.files ? true : false;
   const editBtn = e.target.closest(".edit-name-btn");
+  const deleteBtn = e.target.parentElement.querySelector(".delete-btn");
+
+  deleteBtn && deleteBtn.classList.add("hide");
 
   if (editBtn) {
     isTopFolder && editBtn.classList.add("hide");
@@ -100,6 +113,7 @@ function handleEditName(e, content, isTopFolder) {
       input.remove();
       okBtn.remove();
       editBtn.classList.remove("hide");
+      deleteBtn && deleteBtn.classList.remove("hide");
       span.classList.remove("hide");
       const newName = input.value.trim();
       setTimeout(() => {
@@ -108,14 +122,31 @@ function handleEditName(e, content, isTopFolder) {
 
       if (!newName || newName === oldName) return;
 
-      const apiPath = isFolder || isTopFolder ? PATH.FOLDER_NAMEPATCH : PATH.FILE_NAMEPATCH;
-      const res = await patchRequest(PATH.BASEURL + apiPath + content.id, {
-        name: newName,
-      });
+      const path = isFolder || isTopFolder ? PATH.FOLDER_NAMEPATCH : PATH.FILE_NAMEPATCH;
+      const res = await patchRequest(
+        PATH.BASEURL + path + content.id,
+        { name: newName },
+        "Failed to edit name of content"
+      );
 
       span.textContent = res.data.name;
     });
   }
+}
+
+async function handleDeleteContent(e, content) {
+  const contentItem = e.target.closest("li");
+  contentItem && contentItem.remove();
+
+  const isFolder = content?.files ? true : false;
+
+  if (isFolder && content.parentId === null) {
+    contentList.innerHTML = "";
+  }
+
+  const path = isFolder ? PATH.FOLDER_DELETE : PATH.FILE_DELETE;
+
+  await deleteRequest(PATH.BASEURL + path + content.id, "Failed to delete content");
 }
 
 function renderContent(content) {
@@ -156,12 +187,16 @@ function createContentItems(content, folder) {
   const contentDownloadBtn = $create("button", { class: ["icon-btn", "download-btn"] });
   const contentDownloadIcon = $create("img", { src: ICONPATH.DOWNLOAD });
   const contentEditBtn = $create("button", { class: ["icon-btn", "edit-name-btn"] });
-  const contentDeleteBtn = $create("button", { class: ["icon-btn", "delete-btn"] });
+  const contentDeleteBtn = $create("button", { class: ["icon-btn", "delete-btn"], data: { id: content.id } });
   const contentDeleteIcon = $create("img", { src: ICONPATH.DELETE });
   const contentEditIcon = $create("img", { src: ICONPATH.EDIT });
   const contentShowBtn = $create("button", {
     class: ["icon-btn", "show-content-btn"],
     data: { btn: content.name },
+  });
+
+  contentDeleteBtn.addEventListener("click", async (e) => {
+    handleDeleteContent(e, content);
   });
 
   if (folderIsEmpty) {

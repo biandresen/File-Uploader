@@ -381,7 +381,7 @@ header > div {
 }
 #dashboard-nav.closed {
   /* position: absolute; */
-  translate: -150% 0;
+  translate: -150% 50%;
 }
 #dashboard-nav > div {
   justify-content: space-between;
