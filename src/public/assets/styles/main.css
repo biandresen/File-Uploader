@@ -342,8 +342,17 @@ header > div {
   rotate: 180deg;
 }
 .file-menu {
-  padding: 5px 0;
+  padding: 3px 0;
   border-top: 2px solid var(--color-secondary);
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+}
+.file-menu.open {
+  height: 65px;
+}
+.triangle {
+  transition: rotate 0.3s ease-in-out;
 }
 .file-menu > div {
   margin-left: auto;
@@ -355,9 +364,9 @@ header > div {
 }
 
 #dashboard-nav {
-  position: absolute;
-  left: 20px;
-  top: 168px;
+  position: fixed;
+  top: 83px;
+  translate: -10% -7%;
   z-index: 50;
   padding: 10px;
   font-weight: bold;
@@ -367,7 +376,12 @@ header > div {
   border-bottom-left-radius: 0px;
   border-top-right-radius: var(--r-xl);
   border-bottom-right-radius: var(--r-xl);
-  box-shadow: 2px 1px 5px var(--color-shadow);
+  box-shadow: 2px 2px 5px var(--color-shadow);
+  transition: translate 0.3s ease-in-out;
+}
+#dashboard-nav.closed {
+  /* position: absolute; */
+  translate: -150% 0;
 }
 #dashboard-nav > div {
   justify-content: space-between;

@@ -22,9 +22,7 @@ const fileController = {
 
     res.status(200).json({
       status: "success",
-      data: {
-        updatedFile,
-      },
+      data: updatedFile,
     });
   }),
 };
