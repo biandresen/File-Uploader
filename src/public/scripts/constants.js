@@ -6,10 +6,13 @@ export const PATH = {
   LOGIN: "/login",
   LOGOUT: "/logout",
   USERCONTENT: "/user/get-content",
-  FOLDER_NAMEPATCH: "/folder/",
-  FILE_NAMEPATCH: "/file/",
-  FOLDER_DELETE: "/folder/",
-  FILE_DELETE: "/file/",
+  FOLDER_NAMEPATCH: "/folders/",
+  FILE_NAMEPATCH: "/files/",
+  FOLDER_DELETE: "/folders/",
+  FOLDER_CREATE: "/folders",
+  FILE_DELETE: "/files/",
+  FILE_CREATE: "/files",
+  ALLFOLDERS: "/folders",
 };
 
 export const MSG = {
@@ -31,4 +34,6 @@ export const ICONPATH = {
   EDIT: "/assets/icons/edit.svg",
   DOWNLOAD: "/assets/icons/download.svg",
   DELETE: "/assets/icons/trash.svg",
+  NEW_FILE: "/assets/icons/new-file.svg",
+  NEW_FOLDER: "/assets/icons/new-folder.svg",
 };

@@ -6,6 +6,7 @@ export const user = {
   isAuthenticated: false,
   userInfo: null,
   data: null,
+  allFolders: null,
 
   async checkAuth() {
     try {
@@ -44,9 +45,28 @@ export const user = {
   async getUserContent() {
     try {
       const res = await fetch(PATH.BASEURL + PATH.USERCONTENT);
+      if (!res.ok) throw new Error(`Failed getting user content: ${res.status}`);
       const data = await res?.json();
-      this.data = data;
-      return data;
+      console.log(data);
+      this.data = data.data;
+      return data.data;
+    } catch (err) {
+      console.error("Error getting user content: ", err);
+    }
+  },
+
+  async getAllFolders() {
+    try {
+      const res = await fetch(PATH.BASEURL + PATH.ALLFOLDERS, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res?.json();
+      if (!res.ok) throw new Error(`Failed getting folders: ${res.status}`);
+      this.allFolders = data.folders;
+      return data.folders;
     } catch (err) {
       console.error("Error getting user content: ", err);
     }

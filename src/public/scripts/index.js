@@ -1,8 +1,9 @@
 import { user } from "./user.js";
 import { initRouter, navigate } from "./router.js";
-import nav from "./nav.js";
 import { initInputLabels } from "./inputLabels.js";
 import { renderDashboard } from "./dashboardPage.js";
+import nav from "./nav.js";
+import createNewContent from "./create-new-content.js";
 import "./constants.js";
 import "./loginPage.js";
 import "./modal.js";
@@ -15,7 +16,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   await user.getUserContent();
   initInputLabels("register");
   initInputLabels("login");
+  initInputLabels("new-file");
+  initInputLabels("new-folder");
   initRouter();
+  createNewContent.init();
   if (isAuthenticated) renderDashboard();
   await navigate(window.location.pathname);
 });

@@ -15,9 +15,31 @@ const userController = {
         userId: user.id,
         parentId: null, // top-level folders
       },
+      orderBy: { id: "asc" },
       include: {
         children: {
           include: {
+            children: {
+              include: {
+                children: {
+                  include: {
+                    children: {
+                      include: {
+                        children: {
+                          include: {
+                            children: true,
+                            files: true,
+                          },
+                        },
+                        files: true,
+                      },
+                    },
+                    files: true,
+                  },
+                },
+                files: true,
+              },
+            },
             files: true, // files in child folders
           },
         },
@@ -25,7 +47,11 @@ const userController = {
       },
     });
 
-    res.status(200).json(data);
+    res.status(200).json({
+      status: "success",
+      message: "User content retrieved successfully",
+      data,
+    });
   }),
 };
 

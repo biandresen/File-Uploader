@@ -71,7 +71,7 @@
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .label-up {

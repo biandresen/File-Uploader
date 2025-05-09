@@ -4,6 +4,52 @@
   <body>
     <%- include("./partials/header.ejs") %>
     <dialog id="modal" class="modal"></dialog>
+
+    <dialog id="form-modal" class="modal">
+      <button id="close-form-btn" class="close-btn" type="button">X</button>
+      <section id="new-file-section">
+        <h2>New File</h2>
+        <form id="new-file-form">
+          <label data-page="new-file" for="fileName">NAME*</label>
+          <input data-page="new-file" id="fileName" name="fileName" type="text" required />
+
+          <label data-page="new-file" for="fileLink">LINK*</label>
+          <input data-page="new-file" id="fileLink" name="fileLink" type="url" required />
+
+          <label data-page="new-file" for="fileExtension">Extension</label>
+          <input data-page="new-file" id="fileExtension" name="fileExtension" type="text" />
+
+          <label data-page="new-file" for="fileSize">File Size (mb)</label>
+          <input data-page="new-file" id="fileSize" name="fileSize" type="number" step="0.01" min="0" />
+
+          <label data-page="new-file" for="filePlacement"></label>
+          <select data-page="new-file" id="filePlacement" required></select>
+
+          <div id="new-file-error-wrapper" class="error-wrapper" hidden>
+            <p class="error-heading">ERRORS:</p>
+            <ul id="new-file-error-list" class="error-list"></ul>
+          </div>
+          <button id="new-file-btn" type="submit">CREATE</button>
+        </form>
+      </section>
+
+      <section id="new-folder-section">
+        <h2>New Folder</h2>
+        <form id="new-folder-form">
+          <label data-page="new-folder" for="folderName">NAME*</label>
+          <input data-page="new-folder" id="folderName" name="folderName" type="text" required />
+
+          <label data-page="new-folder" for="folderPlacement"></label>
+          <select data-page="new-folder" id="folderPlacement" required></select>
+
+          <div id="new-folder-error-wrapper" class="error-wrapper" hidden>
+            <p class="error-heading">ERRORS:</p>
+            <ul id="new-folder-error-list" class="error-list"></ul>
+          </div>
+          <button id="new-folder-btn" type="submit">CREATE</button>
+        </form>
+      </section>
+    </dialog>
     <!--  -->
     <main id="home-page" data-page="/" hidden>
       <div class="wrapper">
@@ -13,6 +59,16 @@
             <button id="create-new-btn" class="icon-btn" type="button">
               <img src="/assets/icons/plus.svg" alt="new file/folder" />
             </button>
+            <!-- <div id="create-new-wrapper" class="column-wrapper hide">
+              <button id="new-file-btn" type="button" class="icon-btn create-btn">
+                <img src="/assets/icons/new-file.svg" alt="" />
+                <span>New File</span>
+              </button>
+              <button id="new-folder-btn" type="button" class="icon-btn create-btn">
+                <img src="/assets/icons/new-folder.svg" alt="" />
+                <span>New Folder</span>
+              </button>
+            </div> -->
             <button id="dashboard-nav-btn" class="icon-btn" type="button">
               <img src="/assets/icons/triangle.svg" alt="folder navigation" />
             </button>

@@ -17,6 +17,15 @@
   right: 17px;
 }
 
+.close-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+
 .icon-btn {
   background-color: transparent;
 }
@@ -47,27 +56,36 @@ button {
 a {
   cursor: pointer;
 }
-input {
+input,
+select {
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   background-color: var(--color-secondary);
   border-radius: var(--r-2xl);
-  font-size: var(--fs-20);
-  height: 40px;
+  font-size: var(--fs-16);
+  height: 30px;
   font-weight: bold;
   text-indent: 10px;
   color: var(--color-text-2);
+}
+select {
+  margin-top: 30px;
 }
 input:focus {
   outline: 2px solid var(--color-text-1);
 }
 label {
   position: relative;
-  top: 39px;
+  top: 30px;
   left: 12px;
   font-family: var(--ff-heading);
-  font-size: var(--fs-24);
+  font-size: var(--fs-20);
   transition: top 0.6s ease-in-out;
+}
+option,
+select {
+  color: var(--color-text-1);
+  font-weight: bold;
 }
 .error-wrapper {
   background-color: var(--color-error);
@@ -95,19 +113,20 @@ label {
 }
 .modal {
   position: absolute;
-  top: 25%;
+  top: 33%;
   left: 50%;
   translate: -50% -50%;
   text-align: center;
+  min-width: calc(var(--app-width-s) - 80px);
   max-width: calc(var(--app-width-s) - 40px);
-  max-height: 250px;
-  background-color: var(--color-btn);
-  color: var(--color-text-2);
+  min-height: 200px;
+  background-color: var(--color-primary);
+  color: var(--color-text-1);
   font-weight: bold;
   font-size: var(--fs-20);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: var(--r-2xl);
+  box-shadow: 3px 3px 5px var(--color-shadow);
 }
 .modal::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
@@ -117,6 +136,11 @@ label {
   font-family: var(--ff-body);
   font-size: var(--fs-28);
   font-weight: bold;
+}
+#form-modal {
+  position: relative;
+  text-align: unset;
+  top: 50%;
 }
 
 body {
@@ -187,7 +211,9 @@ header > div {
 #register-section,
 #login-section,
 #about-section,
-#page-not-found-section {
+#page-not-found-section,
+#new-folder-section,
+#new-file-section {
   display: flex;
   flex-direction: column;
   border-radius: var(--r-3xl);
@@ -197,13 +223,17 @@ header > div {
 }
 #register-section > h2,
 #login-section > h2,
-#about-section > h2 {
+#about-section > h2,
+#new-folder-section > h2,
+#new-file-section > h2 {
   text-align: center;
   font-family: var(--ff-heading);
   font-size: var(--fs-42);
 }
 #register-section > form,
-#login-section > form {
+#login-section > form,
+#new-folder-section > form,
+#new-file-section > form {
   display: flex;
   flex-direction: column;
 }
@@ -216,14 +246,20 @@ header > div {
   text-decoration: underline;
 }
 #register-btn,
-#login-btn {
+#login-btn,
+#new-folder-btn,
+#new-file-btn {
   margin-top: 35px;
   will-change: transform;
 }
 #register-btn:hover,
 #register-btn:focus,
 #login-btn:hover,
-#login-btn:focus {
+#login-btn:focus,
+#new-folder-btn:hover,
+#new-file-btn:hover,
+#new-folder-btn:focus,
+#new-file-btn:focus {
   animation: pulse-shadow 1.4s ease-in-out infinite;
 }
 @keyframes pulse-shadow {
@@ -405,6 +441,29 @@ header > div {
 }
 #dashboard-nav > ul div button:nth-of-type(2) {
   margin: 0 5px 0 auto;
+}
+
+.create-new-wrapper {
+  padding: 20px;
+  border-radius: var(--r-l);
+  margin-top: 18px;
+}
+.create-btn {
+  display: flex;
+  align-items: center;
+  font-family: var(--ff-body);
+  font-size: var(--fs-20);
+  font-weight: bold;
+  border: 1px solid var(--color-text-1);
+  padding-left: 10px;
+  color: var(--color-text-1);
+  background-color: var(--color-primary);
+}
+.create-btn:first-of-type {
+  margin-bottom: 15px;
+}
+.create-btn > img {
+  margin-right: 8px;
 }
 
 footer {

@@ -1,7 +1,7 @@
 import { user } from "./user.js";
 import { $, $create } from "./utils.js";
 import { ICONPATH, PATH } from "./constants.js";
-import { patchRequest, deleteRequest } from "./api/patch-api.js";
+import { patchRequest, deleteRequest } from "./fetchRequests.js";
 
 const dashboardNav = $("#dashboard-nav");
 const topFolderList = $("#top-folder-list");
@@ -54,7 +54,7 @@ export function renderDashboard() {
 
       const contentId = e.currentTarget.dataset.id;
       const content = user.data.find((item) => item.id === Number(contentId));
-
+      console.log(content);
       if (!content) return;
       renderContent(content);
 
@@ -128,8 +128,9 @@ function handleEditName(e, content, isTopFolder) {
         { name: newName },
         "Failed to edit name of content"
       );
-
+      console.log(res);
       span.textContent = res.data.name;
+      span.textContent += !isFolder && content.extension ? "." + content.extension : "";
     });
   }
 }
@@ -182,7 +183,7 @@ function createContentItems(content, folder) {
   const contentCreated = $create("p");
   contentCreated.textContent = content.createdAt?.split("T")[0] ?? "-";
   const contentSize = $create("p");
-  contentSize.textContent = folder ? " ----- " : (content.size.toFixed(1) + "kb" ?? " ----- ");
+  contentSize.textContent = folder ? " ----- " : (content.size.toFixed(1) + "mb" ?? " ----- ");
   const contentRowWrapper2 = $create("div", { class: ["row-wrapper"] });
   const contentDownloadBtn = $create("button", { class: ["icon-btn", "download-btn"] });
   const contentDownloadIcon = $create("img", { src: ICONPATH.DOWNLOAD });

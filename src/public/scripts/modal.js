@@ -1,6 +1,10 @@
 import { $, $create } from "./utils.js";
 const modalElement = $("#modal");
 
+modalElement.addEventListener("click", (e) => {
+  if (e.target === modalElement) modal.close();
+});
+
 const modal = {
   /**
    * Shows a modal for a set time with one or more messages
@@ -38,6 +42,12 @@ const modal = {
 
   close() {
     modalElement.close();
+  },
+
+  showElement(element) {
+    modalElement.innerHTML = "";
+    modalElement.appendChild(element);
+    modalElement.showModal();
   },
 };
 
