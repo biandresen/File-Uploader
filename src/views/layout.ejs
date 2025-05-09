@@ -13,17 +13,20 @@
           <label data-page="new-file" for="fileName">NAME*</label>
           <input data-page="new-file" id="fileName" name="fileName" type="text" required />
 
-          <label data-page="new-file" for="fileLink">LINK*</label>
-          <input data-page="new-file" id="fileLink" name="fileLink" type="url" required />
-
-          <label data-page="new-file" for="fileExtension">Extension</label>
-          <input data-page="new-file" id="fileExtension" name="fileExtension" type="text" />
-
-          <label data-page="new-file" for="fileSize">File Size (mb)</label>
-          <input data-page="new-file" id="fileSize" name="fileSize" type="number" step="0.01" min="0" />
+          <label for="fileUpload">Upload File*</label>
+          <input type="file" id="fileUpload" name="file" required />
 
           <label data-page="new-file" for="filePlacement"></label>
           <select data-page="new-file" id="filePlacement" required></select>
+
+          <!-- <label data-page="new-file" for="fileLink">LINK*</label>
+          <input data-page="new-file" id="fileLink" name="fileLink" type="url" required /> -->
+
+          <!-- <label data-page="new-file" for="fileExtension">Extension</label>
+          <input data-page="new-file" id="fileExtension" name="fileExtension" type="text" />
+
+          <label data-page="new-file" for="fileSize">File Size (mb)</label>
+          <input data-page="new-file" id="fileSize" name="fileSize" type="number" step="0.01" min="0" /> -->
 
           <div id="new-file-error-wrapper" class="error-wrapper" hidden>
             <p class="error-heading">ERRORS:</p>

@@ -13,7 +13,7 @@ import "./user.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const isAuthenticated = await user.checkAuth();
   nav.init(isAuthenticated);
-  await user.getUserContent();
+  // await user.getUserContent();
   initInputLabels("register");
   initInputLabels("login");
   initInputLabels("new-file");

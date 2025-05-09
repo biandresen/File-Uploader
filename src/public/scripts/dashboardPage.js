@@ -17,7 +17,8 @@ function toggleDashboardNav() {
   dashboardNav.classList.toggle("closed");
 }
 
-export function renderDashboard() {
+export async function renderDashboard() {
+  await user.getUserContent();
   topFolderList.innerHTML = "";
 
   user.data.forEach((topFolder) => {

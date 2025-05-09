@@ -1,28 +1,42 @@
 import CustomError from "../utils/CustomError.js";
 import prisma from "../db/client.js";
 import asyncErrorHandler from "../utils/asyncErrorHandler.js";
+import cloudinary from "../fileManagement/fileService.js";
+import fs from "fs/promises";
 
 const fileController = {
   createFile: asyncErrorHandler(async (req, res, next) => {
-    const { name, link, extension, size, id } = req.body;
+    const { name, folderId } = req.body;
+    const file = req.file;
 
-    if (!name) return next(CustomError(400, "File name is missing"));
-    if (!id) return next(CustomError(404, "Parent file not found"));
+    if (!file) return next(CustomError(400, "No file uploaded"));
 
-    console.log({ name, link, extension, size, id });
+    // Upload to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(file.path, {
+      folder: "your_app_folder",
+    });
+
+    // Get file metadata
+    const extension = file.originalname.split(".").pop();
+    const size = file.size / (1024 * 1024); // Convert bytes to MB
+
+    // Delete temp file
+    await fs.unlink(file.path);
+
+    // Save in DB
     const createdFile = await prisma.file.create({
       data: {
         name,
-        link,
-        size: Number(size),
         extension,
-        folderId: id,
+        size: parseFloat(size.toFixed(2)),
+        folderId: parseInt(folderId),
+        link: uploadResult.secure_url,
       },
     });
 
     res.status(201).json({
       status: "success",
-      message: "File created successfully",
+      message: "File uploaded and saved",
       data: createdFile,
     });
   }),

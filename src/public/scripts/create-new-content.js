@@ -2,6 +2,7 @@ import { $, $create } from "./utils.js";
 import { ICONPATH, PATH } from "./constants.js";
 import modal from "./modal.js";
 import { user } from "./user.js";
+import { renderDashboard } from "./dashboardPage.js";
 
 const formModal = $("#form-modal");
 
@@ -23,9 +24,10 @@ const fileCreation = {
   init() {
     this.newFileForm = $("#new-file-form");
     this.nameInput = $("#fileName");
-    this.linkInput = $("#fileLink");
-    this.extensionInput = $("#fileExtension");
-    this.sizeInput = $("#fileSize");
+    this.fileInput = $("#fileUpload");
+    // this.linkInput = $("#fileLink");
+    // this.extensionInput = $("#fileExtension");
+    // this.sizeInput = $("#fileSize");
     this.placementInput = $("#filePlacement");
     this.newFileBtn = $("#new-file-btn");
     this.newFileForm.addEventListener("submit", (e) => this.createFile(e));
@@ -34,35 +36,27 @@ const fileCreation = {
   },
   createFile: async function (e) {
     e.preventDefault();
-    const name = this.nameInput.value;
-    const link = this.linkInput.value;
-    const extension = this.extensionInput.value;
-    const size = Number(this.sizeInput.value);
-    const selector = this.placementInput;
-    const selectedOption = selector.options[selector.selectedIndex];
-    let folderId = Number(selectedOption.dataset.id);
+
+    const formData = new FormData();
+    formData.append("name", this.nameInput.value);
+    formData.append("file", this.fileInput.files[0]); // Add the actual file
+    const selectedOption = this.placementInput.options[this.placementInput.selectedIndex];
+    formData.append("folderId", selectedOption.dataset.id);
 
     const res = await fetch(PATH.BASEURL + PATH.FILE_CREATE, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        link,
-        extension,
-        size,
-        id: folderId,
-      }),
+      body: formData, // Let the browser set content-type
     });
 
-    if (!res.ok) throw new Error("Error creating new folder");
+    if (!res.ok) throw new Error("Error uploading file");
+
+    const data = await res.json();
+    console.log(data);
 
     formModal.close();
     this.nameInput.value = "";
-    this.linkInput.value = "";
-    this.extensionInput.value = "";
-    this.sizeInput.value = "";
+    this.fileInput.value = "";
+    renderDashboard();
   },
 };
 
@@ -89,9 +83,6 @@ const folderCreation = {
 
     const res = await fetch(PATH.BASEURL + PATH.FOLDER_CREATE, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         name,
         id: folderId,
@@ -102,6 +93,7 @@ const folderCreation = {
 
     this.nameInput.value = "";
     formModal.close();
+    renderDashboard();
   },
 };
 
