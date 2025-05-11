@@ -12,10 +12,7 @@ const authController = {
 
     // check if email already exists, if so send fail response with custom error
     const emailExists = await prisma.user.findUnique({ where: { email } });
-    if (emailExists) {
-      const error = new CustomError(400, "Email already exists. Please enter another email");
-      return next(error);
-    }
+    if (emailExists) return next(new CustomError(400, "Email already exists. Please enter another email"));
 
     // hash password with bcrypt
     const hashedPassword = await hashPassword(password);
@@ -44,10 +41,7 @@ const authController = {
     passport.authenticate("local", (err, user, message) => {
       if (err) return next(err);
 
-      if (!user) {
-        const error = new CustomError(400, message.message);
-        return next(error);
-      }
+      if (!user) return next(new CustomError(400, message.message));
 
       req.logIn(user, (err) => {
         if (err) return next(err);
@@ -63,10 +57,7 @@ const authController = {
 
   logout: (req, res, next) => {
     req.logout((err) => {
-      if (err) {
-        const error = new CustomError(500, err.message);
-        return next(error);
-      }
+      if (err) return next(new CustomError(500, err.message));
 
       req.session.destroy(() => {
         res.clearCookie("connect.sid"); // name depends on your session config

@@ -17,9 +17,27 @@ function toggleDashboardNav() {
   dashboardNav.classList.toggle("closed");
 }
 
+function displayNoDataMsg(targetElement, message) {
+  const noDataElement = $create("li", {
+    class: ["no-data-msg"],
+    text: message,
+  });
+  targetElement.appendChild(noDataElement);
+}
+
 export async function renderDashboard() {
+  console.log("rendering dashboard");
   await user.getUserContent();
   topFolderList.innerHTML = "";
+
+  if (user.data.length <= 0)
+    displayNoDataMsg(
+      topFolderList,
+      "NB! No content yet. Close the menu and create a new folder with the + button "
+    );
+
+  if (contentList && contentList.children.length === 0)
+    displayNoDataMsg(contentList, "Select a Top Folder to show content if you have any");
 
   user.data.forEach((topFolder) => {
     const topFolderItem = $create("li");
@@ -50,12 +68,12 @@ export async function renderDashboard() {
     });
 
     topFolderShowBtn.addEventListener("click", (e) => {
+      toggleDashboardNav();
       const isActive = topFolderRowWrapper.classList.contains("folder-highlight");
       if (isActive || isEditing) return;
 
       const contentId = e.currentTarget.dataset.id;
       const content = user.data.find((item) => item.id === Number(contentId));
-      console.log(content);
       if (!content) return;
       renderContent(content);
 
@@ -78,6 +96,11 @@ export async function renderDashboard() {
 }
 
 function handleEditName(e, content, isTopFolder) {
+  const existingInput =
+    e.target.parentElement.parentElement.parentElement.previousElementSibling.querySelector("input");
+
+  if (existingInput) return;
+
   isEditing = true;
   const isFolder = content?.files ? true : false;
   const editBtn = e.target.closest(".edit-name-btn");
@@ -92,8 +115,12 @@ function handleEditName(e, content, isTopFolder) {
         editBtn.closest(".row-wrapper")
       : editBtn.closest(".row-wrapper").parentElement.previousElementSibling;
     const span = wrapper.querySelector(`span[data-id="${content.id}"]`);
-    console.log(span);
     const oldName = span.textContent;
+
+    if (!isTopFolder) {
+      const expandBtn = wrapper.querySelector(".file-expand-btn");
+      expandBtn.classList.add("hide");
+    }
 
     const input = $create("input", {
       type: "text",
@@ -115,6 +142,11 @@ function handleEditName(e, content, isTopFolder) {
       okBtn.remove();
       editBtn.classList.remove("hide");
       deleteBtn && deleteBtn.classList.remove("hide");
+      if (!isTopFolder) {
+        const expandBtn = wrapper.querySelector(".file-expand-btn");
+        expandBtn.classList.remove("hide");
+      }
+
       span.classList.remove("hide");
       const newName = input.value.trim();
       setTimeout(() => {
@@ -129,7 +161,7 @@ function handleEditName(e, content, isTopFolder) {
         { name: newName },
         "Failed to edit name of content"
       );
-      console.log(res);
+
       span.textContent = res.data.name;
       span.textContent += !isFolder && content.extension ? "." + content.extension : "";
     });
@@ -147,7 +179,10 @@ async function handleDeleteContent(e, content) {
   }
 
   const path = isFolder ? PATH.FOLDER_DELETE : PATH.FILE_DELETE;
-
+  console.log("Deleting content");
+  setTimeout(() => {
+    renderDashboard();
+  }, 50);
   await deleteRequest(PATH.BASEURL + path + content.id, "Failed to delete content");
 }
 
@@ -163,6 +198,9 @@ function renderContent(content) {
 
   folderItems.length && contentList.append(...folderItems);
   fileItems.length && contentList.append(...fileItems);
+
+  if (contentList && contentList.children.length === 0)
+    displayNoDataMsg(contentList, "No content in this folder");
 }
 
 function createContentItems(content, folder) {
@@ -198,7 +236,7 @@ function createContentItems(content, folder) {
   });
 
   contentDeleteBtn.addEventListener("click", async (e) => {
-    handleDeleteContent(e, content);
+    await handleDeleteContent(e, content);
   });
 
   if (folderIsEmpty) {

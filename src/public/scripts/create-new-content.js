@@ -51,12 +51,10 @@ const fileCreation = {
     if (!res.ok) throw new Error("Error uploading file");
 
     const data = await res.json();
-    console.log(data);
 
-    formModal.close();
     this.nameInput.value = "";
     this.fileInput.value = "";
-    renderDashboard();
+    createNewContent.reRenderFormSelectOptions();
   },
 };
 
@@ -81,8 +79,12 @@ const folderCreation = {
     if (folderId === "null") folderId = null;
     else folderId = Number(folderId);
 
+    console.log({ name, folderId });
     const res = await fetch(PATH.BASEURL + PATH.FOLDER_CREATE, {
       method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
       body: JSON.stringify({
         name,
         id: folderId,
@@ -92,8 +94,7 @@ const folderCreation = {
     if (!res.ok) throw new Error("Error creating new folder");
 
     this.nameInput.value = "";
-    formModal.close();
-    renderDashboard();
+    createNewContent.reRenderFormSelectOptions();
   },
 };
 
@@ -140,15 +141,23 @@ const createNewContent = {
     this.newFileSection.classList.remove("hide");
     this.newFolderSection.classList.add("hide");
     formModal.showModal();
+    formModal.querySelector(`input[id="fileName"]`).focus();
   },
   openNewFolderForm() {
     this.newFolderSection.classList.remove("hide");
     this.newFileSection.classList.add("hide");
     formModal.showModal();
+    formModal.querySelector(`input[id="folderName"]`).focus();
+  },
+  reRenderFormSelectOptions: async function () {
+    formModal.close();
+    renderDashboard();
+    this.allFolders = await user.getAllFolders();
+    this.fileModule.placementInput.innerHTML = "";
+    this.folderModule.placementInput.innerHTML = "";
+    this.attachFoldersToForms();
   },
   attachFoldersToForms() {
-    console.log(this.allFolders);
-
     // Create fresh <option> elements for the file form
     const fileOptions = this.allFolders.map((folder) => {
       const depth = getFolderDepth(folder, this.allFolders);

@@ -41,17 +41,17 @@
   --r-3xl: 40px;
   --r-max: 100%;
 
-  --app-width-s: 350px;
-  --app-width-m: 500px;
-  --app-width-l: 768px;
-  --app-width-xl: 1000px;
-  --app-width-2xl: 1300px;
+  --app-width-s: 500px;
+  --app-width-m: 768px;
+  --app-width-l: 1000px;
+  --app-width-xl: 1250px;
+  --app-width-2xl: 1500px;
 }
 
 .wrapper {
   width: 100%;
   padding: 0 10px;
-  max-width: var(--app-width-s);
+  max-width: var(--app-width-m);
   height: 100%;
   margin: 0 auto;
   /* outline: 1px solid red; */

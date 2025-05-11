@@ -5,12 +5,11 @@ import asyncErrorHandler from "../utils/asyncErrorHandler.js";
 const folderController = {
   getAllFolders: asyncErrorHandler(async (req, res, next) => {
     const userId = req.user?.id;
-    console.log(userId);
     const folders = await prisma.folder.findMany({
       where: { userId },
       orderBy: { id: "asc" },
     });
-    if (!folders) return next(CustomError(500, "Couldn't get folders. Try again later..."));
+    if (!folders) return next(new CustomError(500, "Couldn't get folders. Try again later..."));
 
     res.status(200).json({
       status: "success",
@@ -20,13 +19,13 @@ const folderController = {
   }),
   createFolder: asyncErrorHandler(async (req, res, next) => {
     const { name, id } = req.body;
-
-    if (!name) return next(CustomError(400, "Folder name is missing"));
-    if (typeof id === "undefined") return next(CustomError(400, "Folder ID is missing"));
+    console.log({ name, id });
+    if (!name) return next(new CustomError(400, "Folder name is missing"));
+    if (typeof id === "undefined") return next(new CustomError(400, "Folder ID is missing"));
 
     if (id !== null) {
       const parentFolder = await prisma.folder.findUnique({ where: { id } });
-      if (!parentFolder) return next(CustomError(404, "Parent folder not found"));
+      if (!parentFolder) return next(new CustomError(404, "Parent folder not found"));
     }
 
     const createdFolder = await prisma.folder.create({
@@ -48,9 +47,9 @@ const folderController = {
     const { name } = req.body;
     const { id } = req.params;
 
-    if (!name) return next(CustomError(400, "Didn't get a new name"));
+    if (!name) return next(new CustomError(400, "Didn't get a new name"));
 
-    if (!id) return next(CustomError(400, "Folder ID is missing"));
+    if (!id) return next(new CustomError(400, "Folder ID is missing"));
 
     const updatedFolder = await prisma.folder.update({
       where: { id: Number(id) },
@@ -66,7 +65,7 @@ const folderController = {
   delete: asyncErrorHandler(async (req, res, next) => {
     const { id } = req.params;
 
-    if (!id) return next(CustomError(400, "Folder ID is missing"));
+    if (!id) return next(new CustomError(400, "Folder ID is missing"));
 
     await prisma.folder.delete({
       where: { id: Number(id) },

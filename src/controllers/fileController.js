@@ -9,11 +9,11 @@ const fileController = {
     const { name, folderId } = req.body;
     const file = req.file;
 
-    if (!file) return next(CustomError(400, "No file uploaded"));
+    if (!file) return next(new CustomError(400, "No file uploaded"));
 
     // Upload to Cloudinary
     const uploadResult = await cloudinary.uploader.upload(file.path, {
-      folder: "your_app_folder",
+      folder: "App_FileUploader",
     });
 
     // Get file metadata
@@ -45,11 +45,11 @@ const fileController = {
     const { id } = req.params;
 
     if (!name) {
-      return next(CustomError(400, "Didn't get a new name"));
+      return next(new CustomError(400, "Didn't get a new name"));
     }
 
     if (!id) {
-      return next(CustomError(400, "File ID is missing"));
+      return next(new CustomError(400, "File ID is missing"));
     }
 
     const updatedFile = await prisma.file.update({
@@ -67,7 +67,7 @@ const fileController = {
     const { id } = req.params;
 
     if (!id) {
-      return next(CustomError(400, "File ID is missing"));
+      return next(new CustomError(400, "File ID is missing"));
     }
 
     await prisma.file.delete({

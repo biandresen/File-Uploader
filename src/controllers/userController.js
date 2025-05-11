@@ -5,10 +5,7 @@ import CustomError from "../utils/CustomError.js";
 const userController = {
   getContent: asyncErrorHandler(async (req, res, next) => {
     const user = req.user;
-    if (!user) {
-      const error = new CustomError(400, "No user found");
-      return next(error);
-    }
+    if (!user) return next(new CustomError(400, "No user found"));
 
     const data = await prisma.folder.findMany({
       where: {
