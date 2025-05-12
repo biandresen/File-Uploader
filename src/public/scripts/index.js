@@ -12,8 +12,11 @@ import "./user.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const isAuthenticated = await user.checkAuth();
+
+  const theme = localStorage.getItem("theme");
+  document.body.classList.add(theme);
+
   nav.init(isAuthenticated);
-  // await user.getUserContent();
   initInputLabels("register");
   initInputLabels("login");
   initInputLabels("new-file");

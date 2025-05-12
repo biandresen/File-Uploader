@@ -178,7 +178,11 @@ body {
   color: var(--color-text-1);
   font-size: var(--font-base);
   font-family: var(--ff-body);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
+
 main {
   flex: 1;
 }
@@ -196,6 +200,9 @@ header {
 header > div {
   display: flex;
   justify-content: space-between;
+}
+#header__brand {
+  translate: 0 -5px;
 }
 #header__brand > a {
   display: flex;

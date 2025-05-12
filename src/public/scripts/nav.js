@@ -67,6 +67,8 @@ const nav = {
   },
   toggleTheme() {
     this.body.classList.toggle("dark");
+    const isDarkTheme = this.body.classList.contains("dark");
+    localStorage.setItem("theme", isDarkTheme ? "dark" : "light");
   },
   toggleMenu() {
     this.navEl.classList.toggle("open");

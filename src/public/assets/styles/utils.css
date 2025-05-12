@@ -54,7 +54,7 @@
   --color-bg: #1a1a1a;
   --color-primary: #2c3e50;
   --color-secondary: #34495e;
-  --color-btn: #e67e22;
+  --color-btn: #ffa065;
   --color-text-1: #f1f1f1;
   --color-text-2: #ccc;
   --color-text-placeholder: #888;
@@ -103,4 +103,26 @@ h6 {
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: var(--space-sm);
+}
+
+/* Applies to all scrollable elements */
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-primary) var(--color-bg); /* Firefox */
+}
+
+/* WebKit browsers */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary); /* Thumb color */
+  border-radius: 10px;
+  border: 2px solid var(--color-bg);
 }
