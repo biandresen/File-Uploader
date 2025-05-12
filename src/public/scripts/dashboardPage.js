@@ -30,7 +30,7 @@ export async function renderDashboard() {
   await user.getUserContent();
   topFolderList.innerHTML = "";
 
-  if (user.data.length <= 0)
+  if (user.data?.length <= 0)
     displayNoDataMsg(topFolderList, "NB! No content yet. Create a new folder with the + button ");
 
   if (contentList && contentList.children.length === 0)

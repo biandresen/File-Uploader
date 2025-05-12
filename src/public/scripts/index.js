@@ -11,18 +11,17 @@ import "./registerPage.js";
 import "./user.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const isAuthenticated = await user.checkAuth();
-
   const theme = localStorage.getItem("theme");
   document.body.classList.add(theme);
 
+  const isAuthenticated = await user.checkAuth();
   nav.init(isAuthenticated);
   initInputLabels("register");
   initInputLabels("login");
   initInputLabels("new-file");
   initInputLabels("new-folder");
   initRouter();
-  createNewContent.init();
+  isAuthenticated && createNewContent.init();
   if (isAuthenticated) renderDashboard();
   await navigate(window.location.pathname);
 });

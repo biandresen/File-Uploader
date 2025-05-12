@@ -41,6 +41,7 @@
 }
 
 .close-btn {
+  color: var(--color-text-1);
   position: absolute;
   right: 5px;
   top: 5px;
@@ -132,7 +133,6 @@ select {
 .error-heading {
   font-size: var(--fs-16);
   font-weight: bold;
-  /* text-decoration: underline; */
 }
 .modal {
   padding: 20px;
@@ -219,7 +219,6 @@ header > div {
   position: fixed;
   top: 70px;
   margin-left: -10px;
-  /* width: var(--app-width-s); */
   width: 100%;
   height: 0px;
   overflow: hidden;
@@ -470,6 +469,7 @@ header > div {
   z-index: 50;
   padding: 10px;
   font-weight: bold;
+  min-height: 300px;
   width: calc(100% - 40px);
   background-color: var(--color-secondary);
   border-radius: var(--r-xl);

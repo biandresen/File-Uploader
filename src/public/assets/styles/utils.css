@@ -43,7 +43,7 @@
   --r-3xl: 40px;
   --r-max: 100%;
 
-  --app-width-s: 500px;
+  --app-width-s: 350px;
   --app-width-m: 800px;
   --app-width-l: 1000px;
   --app-width-xl: 1250px;
@@ -56,7 +56,7 @@
   --color-secondary: #34495e;
   --color-btn: #ffa065;
   --color-text-1: #f1f1f1;
-  --color-text-2: #ccc;
+  --color-text-2: #1f1f1f;
   --color-text-placeholder: #888;
   --color-error: #e74c3c;
   --color-shadow: rgba(255, 255, 255, 0.1);

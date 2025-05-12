@@ -168,7 +168,7 @@ const createNewContent = {
   },
   attachFoldersToForms() {
     // Create fresh <option> elements for the file form
-    const fileOptions = this.allFolders.map((folder) => {
+    const fileOptions = this.allFolders?.map((folder) => {
       const depth = getFolderDepth(folder, this.allFolders);
       const prefix = "-".repeat(depth);
       const optionText = `${prefix} ${folder.name}`;
@@ -176,7 +176,7 @@ const createNewContent = {
     });
 
     // Create fresh <option> elements for the folder form
-    const folderOptions = this.allFolders.map((folder) => {
+    const folderOptions = this.allFolders?.map((folder) => {
       const depth = getFolderDepth(folder, this.allFolders);
       const prefix = "-".repeat(depth);
       const optionText = `${prefix} ${folder.name}`;
@@ -187,10 +187,10 @@ const createNewContent = {
       text: "Top level",
       data: { id: null },
     });
-    folderOptions.unshift(optionTopLevel);
+    folderOptions && folderOptions.unshift(optionTopLevel);
 
-    this.fileModule.placementInput.append(...fileOptions);
-    this.folderModule.placementInput.append(...folderOptions);
+    fileOptions && this.fileModule.placementInput.append(...fileOptions);
+    folderOptions && this.folderModule.placementInput.append(...folderOptions);
   },
 };
 
