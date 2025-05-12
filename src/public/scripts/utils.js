@@ -49,6 +49,8 @@ export function $create(tag, options = {}) {
   Object.entries(options).forEach(([key, value]) => {
     if (key === "class") {
       element.classList.add(...value);
+    } else if (key === "id") {
+      element.id = value;
     } else if (key === "data") {
       Object.entries(value).forEach(([dataKey, dataValue]) => {
         element.dataset[dataKey] = dataValue;

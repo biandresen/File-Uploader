@@ -46,6 +46,11 @@ const modal = {
 
   showElement(element) {
     modalElement.innerHTML = "";
+
+    const closeBtn = $create("button", { id: "close-form-btn", class: ["close-btn"], text: "X" });
+    closeBtn.addEventListener("click", () => this.close());
+
+    modalElement.appendChild(closeBtn);
     modalElement.appendChild(element);
     modalElement.showModal();
   },
