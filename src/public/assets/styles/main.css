@@ -371,7 +371,7 @@ header > div {
 }
 #dashboard-section > div > h2 {
   font-family: var(--ff-heading);
-  font-size: var(--fs-42);
+  font-size: var(--fs-38);
 }
 #dashboard-nav-btn {
   position: relative;
@@ -403,6 +403,10 @@ header > div {
 }
 #dashboard-content {
   font-weight: 600;
+}
+#dashboard-content > div:nth-of-type(2) {
+  overflow-y: auto;
+  max-height: 48.5vh;
 }
 #content-orders {
   justify-content: space-between;
@@ -455,21 +459,17 @@ header > div {
 #dashboard-nav {
   position: fixed;
   top: 83px;
-  translate: -30px -13px;
+  translate: -30px 6px;
   z-index: 50;
   padding: 10px;
   font-weight: bold;
-  width: calc(100% - 60px);
+  width: calc(100% - 40px);
   background-color: var(--color-secondary);
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-top-right-radius: var(--r-xl);
-  border-bottom-right-radius: var(--r-xl);
+  border-radius: var(--r-xl);
   box-shadow: 2px 2px 5px var(--color-shadow);
   transition: translate 0.3s ease-in-out;
 }
 #dashboard-nav.closed {
-  /* position: absolute; */
   translate: -150% 50%;
 }
 #dashboard-nav > div {
@@ -494,6 +494,13 @@ header > div {
   font-family: var(--ff-body);
   font-size: var(--fs-14);
   translate: -5px -10px;
+}
+#top-folder-list {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+#top-folder-list > li > div {
+  height: 39.8px;
 }
 
 #dashboard-nav ul div {
@@ -665,13 +672,11 @@ footer > div {
   #content-list {
     margin-bottom: 15px;
     gap: 10px;
+    padding-right: 5px;
   }
   #content-list li > div {
     flex-direction: row;
-    padding-right: 5px;
-  }
-  #content-list li {
-    flex: 0 0 37%;
+    padding: 0 5px;
   }
   .file {
     flex: 1;
@@ -716,12 +721,11 @@ footer > div {
     display: flex;
     flex-direction: row;
     padding: 0;
-    /* min-height: 100% !important; */
   }
   #dashboard-nav {
     position: static;
     translate: 0;
-    padding: 10px;
+    padding: 10px 10px 21px 10px;
     width: calc(180px + 5vw);
     height: 100%;
     border-top-left-radius: var(--r-xl);
@@ -760,5 +764,11 @@ footer > div {
   #dashboard-content {
     flex: 1;
     padding: 10px;
+  }
+  #dashboard-content > div:nth-of-type(2) {
+    max-height: 550px;
+  }
+  #top-folder-list {
+    max-height: 538px;
   }
 }

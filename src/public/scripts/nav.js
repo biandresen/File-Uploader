@@ -3,7 +3,7 @@ import { $ } from "./utils.js";
 
 const navItems = {
   loggedOut: `
-<button class="icon-btn">
+<button class="icon-btn" id="theme-btn">
     <li>
       <img data-btn="theme" src="/assets/icons/theme.svg" alt="" />
     </li>
@@ -12,7 +12,7 @@ const navItems = {
   <li><a data-link="page" href="/login">Login</a></li>
   <li><a data-link="page" href="/about">About</a></li>`,
   loggedIn: `
-<button class="icon-btn">
+<button class="icon-btn" id="theme-btn">
     <li>
       <img data-btn="theme" src="/assets/icons/theme.svg" alt="" />
     </li>
@@ -24,7 +24,7 @@ const navItems = {
 
 const nav = {
   init(userIsAuthenticated) {
-    console.log("Init nav object...");
+    this.body = document.body;
     this.userIsAuthenticated = userIsAuthenticated;
     this.navList = $("#header__nav-list");
     this.navEl = $("nav");
@@ -38,7 +38,6 @@ const nav = {
     return this;
   },
   initLinkEvents() {
-    console.log("Init link events...");
     //Event delegation
     ["header", "#login-section", "#register-section"].forEach((selector) => {
       const container = $(selector);
@@ -55,7 +54,6 @@ const nav = {
     });
   },
   initOutsideClickHandler() {
-    console.log("Init outside click handler...");
     document.addEventListener("click", (e) => {
       const isInside = this.navEl.contains(e.target);
       const isMenuBtn = this.menuBtn.contains(e.target);
@@ -67,13 +65,14 @@ const nav = {
       }
     });
   },
+  toggleTheme() {
+    this.body.classList.toggle("dark");
+  },
   toggleMenu() {
-    console.log("Toggle menu...");
     this.navEl.classList.toggle("open");
     this.navEl.style.height = this.navEl.classList.contains("open") ? this.navEl.scrollHeight + "px" : "0px";
   },
   render() {
-    console.log("Rendering navlist...");
     if (this.userIsAuthenticated) {
       this.navList.innerHTML = navItems.loggedIn;
       this.topHomeLink.setAttribute("href", "/");
@@ -82,16 +81,17 @@ const nav = {
       this.topHomeLink.setAttribute("href", "/login");
     }
 
+    this.themeBtn = $("#theme-btn");
+    this.themeBtn.addEventListener("click", () => this.toggleTheme());
+
     return this;
   },
   updateAuthState(isAuthenticated) {
-    console.log("Updating auth state...");
     this.userIsAuthenticated = isAuthenticated;
     this.render();
     return this;
   },
   logoutHandler() {
-    console.log("Logout handler...");
     this.updateAuthState(false);
     this.render();
     return this;
@@ -99,17 +99,3 @@ const nav = {
 };
 
 export default nav;
-
-// Close menu when clicking outside or on a nav link
-// document.addEventListener("click", (e) => {
-//   const isClickInsideMenu = navEl.contains(e.target);
-//   const isMenuBtnClick = menuBtn.contains(e.target);
-//   const isLink = e.target.matches('a[data-link="page"]');
-//   const isThemeBtn = e.target.matches('img[data-btn="theme"]');
-
-//   if (!navEl.classList.contains("open")) return;
-
-//   if ((!isMenuBtnClick && !isClickInsideMenu) || isLink || isThemeBtn) {
-//     toggleMenu();
-//   }
-// });
