@@ -23,6 +23,9 @@ const modal = {
       modalElement.appendChild(p);
     });
 
+    const loadingSpinner = $create("div", { id: "loading-spinner" });
+    modalElement.appendChild(loadingSpinner);
+
     modalElement.showModal();
     setTimeout(() => modalElement.close(), time);
   },

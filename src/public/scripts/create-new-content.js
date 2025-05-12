@@ -36,25 +36,34 @@ const fileCreation = {
   },
   createFile: async function (e) {
     e.preventDefault();
+    const loadingSpinner = $create("div", { id: "loading-spinner" });
+    this.newFileForm.appendChild(loadingSpinner);
 
     const formData = new FormData();
     formData.append("name", this.nameInput.value);
-    formData.append("file", this.fileInput.files[0]); // Add the actual file
+    formData.append("file", this.fileInput.files[0]);
     const selectedOption = this.placementInput.options[this.placementInput.selectedIndex];
     formData.append("folderId", selectedOption.dataset.id);
 
-    const res = await fetch(PATH.BASEURL + PATH.FILE_CREATE, {
-      method: "POST",
-      body: formData, // Let the browser set content-type
-    });
+    try {
+      const res = await fetch(PATH.BASEURL + PATH.FILE_CREATE, {
+        method: "POST",
+        body: formData,
+      });
 
-    if (!res.ok) throw new Error("Error uploading file");
+      if (!res.ok) throw new Error("Error uploading file");
 
-    const data = await res.json();
+      const data = await res.json();
 
-    this.nameInput.value = "";
-    this.fileInput.value = "";
-    createNewContent.reRenderFormSelectOptions();
+      // Reset form
+      this.nameInput.value = "";
+      this.fileInput.value = "";
+      createNewContent.reRenderFormSelectOptions();
+    } catch (err) {
+      console.error("Upload failed:", err);
+    } finally {
+      loadingSpinner.remove();
+    }
   },
 };
 

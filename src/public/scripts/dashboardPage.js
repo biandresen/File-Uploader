@@ -31,10 +31,7 @@ export async function renderDashboard() {
   topFolderList.innerHTML = "";
 
   if (user.data.length <= 0)
-    displayNoDataMsg(
-      topFolderList,
-      "NB! No content yet. Close the menu and create a new folder with the + button "
-    );
+    displayNoDataMsg(topFolderList, "NB! No content yet. Create a new folder with the + button ");
 
   if (contentList && contentList.children.length === 0)
     displayNoDataMsg(contentList, "Select a Top Folder to show content if you have any");
