@@ -59,6 +59,8 @@ export function $create(tag, options = {}) {
       element.src = value;
     } else if (key === "type") {
       element[key] = value;
+    } else if (key === "title") {
+      element.title = value;
     } else if (key === "children") {
       value.forEach((child) => element.appendChild(child));
     } else {

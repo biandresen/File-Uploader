@@ -50,7 +50,11 @@ export async function renderDashboard() {
       data: { id: topFolder.id },
     });
     const topFolderIcon = $create("img", { src: ICONPATH.FOLDER });
-    const topFolderName = $create("span", { data: { id: topFolder.id }, text: topFolder.name });
+    const topFolderName = $create("span", {
+      data: { id: topFolder.id },
+      text: topFolder.name,
+      title: topFolder.name,
+    });
     const topFolderEditBtn = $create("button", { class: ["icon-btn", "edit-name-btn"] });
     const editIcon = $create("img", { src: ICONPATH.EDIT });
     const deleteIcon = $create("img", { src: ICONPATH.DELETE });
@@ -211,14 +215,17 @@ function createContentItems(content, folder) {
   const contentColumnWrapper = $create("div", { class: ["column-wrapper"] });
   const contentFileWrapper = $create("div", { class: ["file", "row-wrapper"], data: { id: content.id } });
   const contentImg = $create("img");
-  const contentSpan = $create("span", { data: { id: content.id } });
+  const contentSpan = $create("span", {
+    data: { id: content.id },
+    title: `${content.name}${content.extension ? "." + content.extension : ""}`,
+  });
   contentSpan.textContent = `${content.name}${content.extension ? "." + content.extension : ""}`;
   const contentExpandIcon = $create("img", { class: ["triangle"], src: ICONPATH.TRIANGLE });
   const contentFileMenu = $create("div", { class: ["file-menu", "column-wrapper"] });
   const contentRowWrapper = $create("div", { class: ["row-wrapper"] });
   const contentExpandBtn = $create("button", { class: ["icon-btn", "file-expand-btn"] });
   const contentQty = $create("p");
-  contentQty.textContent = content.files?.length ?? " ";
+  contentQty.textContent = content.files?.length ?? "----";
   const contentCreated = $create("p");
   contentCreated.textContent = content.createdAt?.split("T")[0] ?? "-";
   const contentSize = $create("p");
