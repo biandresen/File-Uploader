@@ -84,7 +84,6 @@ const folderCreation = {
     if (folderId === "null") folderId = null;
     else folderId = Number(folderId);
 
-    console.log({ name, folderId });
     const res = await fetch(PATH.BASEURL + PATH.FOLDER_CREATE, {
       method: "POST",
       headers: {

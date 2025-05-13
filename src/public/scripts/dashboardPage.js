@@ -180,7 +180,6 @@ async function handleDeleteContent(e, content) {
   }
 
   const path = isFolder ? PATH.FOLDER_DELETE : PATH.FILE_DELETE;
-  console.log("Deleting content");
   setTimeout(() => {
     renderDashboard();
   }, 50);

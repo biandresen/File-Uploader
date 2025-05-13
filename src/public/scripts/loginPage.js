@@ -34,15 +34,15 @@ export async function handleLogin(e, registerEmail, registerPassword) {
     const data = await response.json();
     loginErrorList.innerHTML = "";
 
-    if (response.ok) return handleLoginSuccess(data);
+    if (response.ok) return handleLoginSuccess();
     handleLoginFail(data);
   } catch (err) {
     console.error(err);
   }
 }
 
-async function handleLoginSuccess(data) {
-  console.log("LOGIN Success", data);
+async function handleLoginSuccess() {
+  console.log("LOGIN");
   loginErrorWrapper.hidden = true;
 
   modal.showTimedModal(2500, MSG.LOGIN_HEADING, MSG.LOGIN_SUCCESS, MSG.LOGIN_REDIRECT);
@@ -50,7 +50,9 @@ async function handleLoginSuccess(data) {
   // nav.updateAuthState(await user.checkAuth()).render();
   // renderDashboard();
   // createNewContent.init();
-  navigate(PATH.HOME);
+  setTimeout(() => {
+    navigate(PATH.HOME);
+  }, 1000);
   setTimeout(() => {
     window.location.reload();
   }, 2500);

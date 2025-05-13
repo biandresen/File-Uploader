@@ -47,7 +47,6 @@ export const user = {
       });
       if (!res.ok) throw new Error(`Failed getting user content: ${res.status}`);
       const data = await res?.json();
-      console.log(data);
       this.data = data.data;
       return data.data;
     } catch (err) {

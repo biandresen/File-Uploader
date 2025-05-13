@@ -32,15 +32,14 @@ async function handleRegistration(e) {
     const data = await response.json();
     registerErrorList.innerHTML = "";
 
-    if (response.ok) return handleRegisterSuccess(data);
+    if (response.ok) return handleRegisterSuccess();
     handleRegisterFail(data);
   } catch (err) {
     console.error("Error during registration: ", err);
   }
 }
 
-async function handleRegisterSuccess(data) {
-  console.log("REGISTER Success:", data);
+async function handleRegisterSuccess() {
   registerErrorWrapper.hidden = true; //hide error field
   modal.showTimedModal(2500, MSG.REGISTER_HEADING, MSG.REGISTER_SUCCESS, MSG.REGISTER_REDIRECT);
   await handleLogin(null, registerEmail.value, registerPassword.value); // auto-login
