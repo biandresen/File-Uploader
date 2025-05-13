@@ -36,7 +36,6 @@ const fileCreation = {
     try {
       const res = await fetch(PATH.BASEURL + PATH.FILE_CREATE, {
         method: "POST",
-        credentials: "include",
         body: formData,
       });
 
@@ -86,7 +85,6 @@ const folderCreation = {
     console.log({ name, folderId });
     const res = await fetch(PATH.BASEURL + PATH.FOLDER_CREATE, {
       method: "POST",
-      credentials: "include",
       headers: {
         "content-type": "application/json",
       },

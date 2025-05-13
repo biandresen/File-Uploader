@@ -12,7 +12,6 @@ export const user = {
     try {
       const res = await fetch(PATH.BASEURL + PATH.CHECKAUTH, {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,7 +31,6 @@ export const user = {
     try {
       await fetch(PATH.BASEURL + PATH.LOGOUT, {
         method: "POST",
-        credentials: "include",
       });
       this.isAuthenticated = false;
       this.userInfo = null;
@@ -46,7 +44,6 @@ export const user = {
     try {
       const res = await fetch(PATH.BASEURL + PATH.USERCONTENT, {
         method: "GET",
-        credentials: "include",
       });
       if (!res.ok) throw new Error(`Failed getting user content: ${res.status}`);
       const data = await res?.json();
@@ -62,7 +59,6 @@ export const user = {
     try {
       const res = await fetch(PATH.BASEURL + PATH.ALLFOLDERS, {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

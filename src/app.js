@@ -63,7 +63,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 30,
       secure: process.env.NODE_ENV === "production", // Use 'true' only in production (HTTPS)
       httpOnly: true,
-      sameSite: "lax", // Cross-origin support
+      // sameSite: "lax", // Cross-origin support
     },
   })
 );

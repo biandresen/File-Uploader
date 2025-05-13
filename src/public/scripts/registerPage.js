@@ -19,7 +19,6 @@ async function handleRegistration(e) {
   try {
     const response = await fetch(PATH.BASEURL + PATH.REGISTER, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

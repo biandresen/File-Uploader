@@ -290,7 +290,6 @@ async function getFile(link) {
   try {
     const res = await fetch(link, {
       method: "GET",
-      credentials: "include",
     });
     if (!res.ok) throw new Error("Failed to fetch file");
 
