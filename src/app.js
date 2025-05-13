@@ -50,6 +50,8 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // 7. Sessions
+app.set("trust proxy", 1); // Required on Render (behind HTTPS proxy)
+
 app.use(
   session({
     store: new PrismaSessionStore(prisma, {
@@ -61,9 +63,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 30,
-      secure: process.env.NODE_ENV === "production", // Use 'true' only in production (HTTPS)
-      // httpOnly: true,
-      // sameSite: "lax", // Cross-origin support
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax",
     },
   })
 );

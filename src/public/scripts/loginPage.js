@@ -18,14 +18,12 @@ loginForm.addEventListener("submit", handleLogin);
 export async function handleLogin(e, registerEmail, registerPassword) {
   try {
     if (e?.preventDefault) e.preventDefault();
-    console.log(registerEmail, registerPassword);
 
     const email = loginEmail?.value || registerEmail;
     const password = loginPassword?.value || registerPassword;
 
     const response = await fetch(PATH.BASEURL + PATH.LOGIN, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
