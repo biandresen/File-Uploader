@@ -51,7 +51,9 @@ async function handleLoginSuccess(data) {
   // renderDashboard();
   // createNewContent.init();
   // navigate(PATH.HOME);
-  window.location.reload();
+  setTimeout(() => {
+    window.location.reload();
+  }, 2500);
 }
 
 function handleLoginFail(data) {
