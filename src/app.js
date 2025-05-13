@@ -22,19 +22,19 @@ import { errorHandler } from "./middleware/errorHandler.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins =
-  process.env.NODE_ENV === "production" ?
-    ["https://file-uploader-6ipm.onrender.com"]
-  : ["http://localhost:3000"];
+// const allowedOrigins =
+//   process.env.NODE_ENV === "production" ?
+//     ["https://file-uploader-6ipm.onrender.com"]
+//   : ["http://localhost:3000"];
 
 // 5. Security Middleware
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST"],
-    credentials: true, // needed if you're using sessions
-  })
-);
+// app.use(
+//   cors({
+//     origin: allowedOrigins,
+//     methods: ["GET", "POST", "PATCH", "DELETE"],
+//     credentials: true, // needed if you're using sessions
+//   })
+// );
 app.use(helmet());
 app.use(
   rateLimit({
