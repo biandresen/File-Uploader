@@ -6,6 +6,7 @@ import nav from "./nav.js";
 import { resetInputs, createErrorListItems } from "./utils.js";
 import { dataToArray, $ } from "./utils.js";
 import { renderDashboard } from "./dashboardPage.js";
+import createNewContent from "./create-new-content.js";
 
 const loginForm = $("#login-form");
 const loginErrorWrapper = $("#login-error-wrapper");
@@ -46,9 +47,11 @@ async function handleLoginSuccess(data) {
 
   modal.showTimedModal(2500, MSG.LOGIN_HEADING, MSG.LOGIN_SUCCESS, MSG.LOGIN_REDIRECT);
   resetInputs(loginEmail, loginPassword);
-  nav.updateAuthState(await user.checkAuth()).render();
-  renderDashboard();
-  navigate(PATH.HOME);
+  // nav.updateAuthState(await user.checkAuth()).render();
+  // renderDashboard();
+  // createNewContent.init();
+  // navigate(PATH.HOME);
+  window.location.reload();
 }
 
 function handleLoginFail(data) {

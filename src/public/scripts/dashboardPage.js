@@ -26,6 +26,7 @@ function displayNoDataMsg(targetElement, message) {
 }
 
 export async function renderDashboard() {
+  isEditing = false;
   await user.getUserContent();
   topFolderList.innerHTML = "";
   contentList.innerHTML = "";
