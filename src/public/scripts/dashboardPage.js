@@ -10,7 +10,7 @@ const topFoldersNavBtn = $("#top-folders-nav-btn");
 const dashboardNavBtn = $("#dashboard-nav-btn");
 let isEditing = false;
 
-topFoldersNavBtn.addEventListener("click", toggleDashboardNav);
+// topFoldersNavBtn.addEventListener("click", toggleDashboardNav);
 dashboardNavBtn.addEventListener("click", toggleDashboardNav);
 
 function toggleDashboardNav() {

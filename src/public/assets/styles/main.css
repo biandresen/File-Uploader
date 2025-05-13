@@ -789,4 +789,7 @@ footer > div {
   #form-modal {
     max-width: calc(var(--app-width-m) - 40px);
   }
+  #new-folder-form {
+    width: 428px;
+  }
 }

@@ -35,7 +35,24 @@ app.use(
     credentials: true, // needed if you're using sessions
   })
 );
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://res.cloudinary.com"],
+      imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+      mediaSrc: ["'self'", "https://res.cloudinary.com"],
+      objectSrc: ["'none'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'self'"],
+      upgradeInsecureRequests: [],
+    },
+  })
+);
+
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -77,11 +94,6 @@ app.use(passport.session());
 // 9. Set view engine
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
-
-app.use((req, res, next) => {
-  console.log("CORS Headers:", res.getHeaders());
-  next();
-});
 
 // 10. Routes
 app.use("/", authRouter);

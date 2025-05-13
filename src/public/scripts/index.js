@@ -10,7 +10,7 @@ import "./modal.js";
 import "./registerPage.js";
 import "./user.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
+export async function initialLoad() {
   const theme = localStorage.getItem("theme");
   document.body.classList.add(theme);
 
@@ -24,4 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   isAuthenticated && createNewContent.init();
   if (isAuthenticated) renderDashboard();
   await navigate(window.location.pathname);
-});
+}
+
+document.addEventListener("DOMContentLoaded", async () => initialLoad());
