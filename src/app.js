@@ -22,19 +22,19 @@ import { errorHandler } from "./middleware/errorHandler.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
-// const allowedOrigins =
-//   process.env.NODE_ENV === "production" ?
-//     ["https://file-uploader-6ipm.onrender.com"]
-//   : ["http://localhost:3000"];
+const allowedOrigins =
+  process.env.NODE_ENV === "production" ?
+    ["https://file-uploader-6ipm.onrender.com"]
+  : ["http://localhost:3000"];
 
 // 5. Security Middleware
-// app.use(
-//   cors({
-//     origin: allowedOrigins,
-//     methods: ["GET", "POST", "PATCH", "DELETE"],
-//     credentials: true, // needed if you're using sessions
-//   })
-// );
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true, // needed if you're using sessions
+  })
+);
 app.use(helmet());
 app.use(
   rateLimit({
@@ -63,7 +63,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 30,
       secure: process.env.NODE_ENV === "production", // Use 'true' only in production (HTTPS)
       httpOnly: true,
-      sameSite: "None", // Cross-origin support
+      sameSite: "lax", // Cross-origin support
     },
   })
 );
@@ -75,6 +75,11 @@ app.use(passport.session());
 // 9. Set view engine
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
+
+app.use((req, res, next) => {
+  console.log("CORS Headers:", res.getHeaders());
+  next();
+});
 
 // 10. Routes
 app.use("/", authRouter);

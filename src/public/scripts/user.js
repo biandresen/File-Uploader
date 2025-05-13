@@ -16,11 +16,10 @@ export const user = {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
       const data = await res.json();
       this.isAuthenticated = data.loggedIn;
-      this.unserInfo = data.user || null;
+      this.userInfo = data.user || null;
       return this.isAuthenticated;
     } catch (err) {
       console.error("Auth check failed: ", err);
