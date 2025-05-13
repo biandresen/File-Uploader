@@ -18,8 +18,8 @@ export function initRouter() {
 
 export async function navigate(path) {
   if (path === PATH.HOME && !user.isAuthenticated) {
-    renderPage(PATH.LOGIN);
-    return modal.showTimedModal(2500, MSG.AUTH_HEADING, MSG.AUTH_FAILED);
+    return renderPage(PATH.LOGIN);
+    // return modal.showTimedModal(2500, MSG.AUTH_HEADING, MSG.AUTH_FAILED);
   }
 
   if (path === PATH.LOGOUT) {

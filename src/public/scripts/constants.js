@@ -1,5 +1,8 @@
 export const PATH = {
-  BASEURL: "http://localhost:3000",
+  BASEURL:
+    process.env.NODE_ENV === "production" ?
+      "https://file-uploader-6ipm.onrender.com/"
+    : "http://localhost:3000",
   HOME: "/",
   CHECKAUTH: "/check-auth",
   REGISTER: "/register",
