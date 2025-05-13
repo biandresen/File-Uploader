@@ -1,7 +1,7 @@
 const isProd = window.location.hostname !== "localhost";
 
 export const PATH = {
-  BASEURL: isProd ? "https://file-uploader-6ipm.onrender.com/" : "http://localhost:3000",
+  BASEURL: isProd ? "https://file-uploader-6ipm.onrender.com" : "http://localhost:3000",
   HOME: "/",
   CHECKAUTH: "/check-auth",
   REGISTER: "/register",
