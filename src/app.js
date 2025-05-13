@@ -23,7 +23,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const allowedOrigins =
-  process.env.NODE_ENV === "production" ? ["https://yourdomain.com"] : ["http://localhost:3000"];
+  process.env.NODE_ENV === "production" ?
+    ["https://file-uploader-6ipm.onrender.com"]
+  : ["http://localhost:3000"];
 
 // 5. Security Middleware
 app.use(

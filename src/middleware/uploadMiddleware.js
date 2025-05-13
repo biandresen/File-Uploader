@@ -7,5 +7,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadPath = path.join(__dirname, "../fileManagement/uploads");
 
-const upload = multer({ dest: uploadPath, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit
+const fileUploadLimit = 10 * 1024 * 1024; // 10MB limit
+export const fileLimitInMb = fileUploadLimit / (1024 * 1024);
+
+const upload = multer({ dest: uploadPath, limits: { fileSize: fileUploadLimit } });
 export default upload;

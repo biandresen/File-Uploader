@@ -19,7 +19,6 @@ const folderController = {
   }),
   createFolder: asyncErrorHandler(async (req, res, next) => {
     const { name, id } = req.body;
-    console.log({ name, id });
     if (!name) return next(new CustomError(400, "Folder name is missing"));
     if (typeof id === "undefined") return next(new CustomError(400, "Folder ID is missing"));
 

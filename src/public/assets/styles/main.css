@@ -134,6 +134,14 @@ select {
   font-size: var(--fs-16);
   font-weight: bold;
 }
+.error-msg {
+  background-color: var(--color-error);
+  color: var(--color-text-2);
+  text-align: center;
+  margin-top: 20px;
+  border-radius: var(--r-2xl);
+  padding: 5px 10px;
+}
 .modal {
   padding: 20px;
   position: relative;
@@ -164,7 +172,7 @@ select {
 #form-modal {
   position: relative;
   text-align: unset;
-  top: 33%;
+  top: 50%;
 }
 #fileUpload {
   margin-top: 30px;
@@ -777,5 +785,8 @@ footer > div {
   }
   #top-folder-list {
     max-height: 538px;
+  }
+  #form-modal {
+    max-width: calc(var(--app-width-m) - 40px);
   }
 }

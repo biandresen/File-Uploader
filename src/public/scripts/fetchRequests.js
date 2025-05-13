@@ -12,7 +12,7 @@ export async function patchRequest(path, body, failMsg) {
 
     return await res.json();
   } catch (err) {
-    alert(failMsg + ": " + err.message);
+    console.error(failMsg + ": " + err.message);
   }
 }
 
@@ -29,6 +29,6 @@ export async function deleteRequest(path, failMsg) {
 
     return await response.json();
   } catch (err) {
-    alert(failMsg + ": " + err.message);
+    console.error(failMsg + ": " + err.message);
   }
 }

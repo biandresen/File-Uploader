@@ -1,3 +1,5 @@
+import { fileLimitInMb } from "./uploadMiddleware.js";
+
 const devErrors = (res, err) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -22,7 +24,6 @@ const prodErrors = (res, err) => {
 };
 
 export const errorHandler = (err, req, res, next) => {
-  console.log("ERROR HANDLER");
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
   err.message = Array.isArray(err.message) ? err.message : [err.message];
@@ -31,8 +32,18 @@ export const errorHandler = (err, req, res, next) => {
     devErrors(res, err);
   } else if (process.env.NODE_ENV === "production") {
     // Different error types
-    // if (err.name === "CastError") err = castErrorHandler(err);
+    if (err.message[0] === "File too large") {
+      err.isOperational = true;
+      err.statusCode = 413;
+      err.status = "fail";
+      err.message = `File too large. Cannot exceed ${fileLimitInMb.toString()}mb.`;
+    }
 
     prodErrors(res, err);
   }
 };
+
+// app.use((err, req, res, next) => {
+//   if (err.type === "entity.too.large") {
+//     return res.status(413).json({ error: "Payload too large. Max size is 1MB." });
+//   }

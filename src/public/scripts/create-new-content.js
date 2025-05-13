@@ -10,24 +10,12 @@ formModal.addEventListener("click", (e) => {
   if (e.target === formModal) formModal.close();
 });
 
-// get folders
-// insert folders into option elements to chose where to put the new file/folder
-//* FOLDERS
-// the selection must show the options: top (where the top folders are) and all folders
-// top just creates a new folder with parentId=null, other folders sets the parentId to the id of the folder
-//* FILES
-// Show folder options except top. Sets the file to have the folderId as the selected folder
-
-// prisma.create(data: {})
-
 const fileCreation = {
   init() {
     this.newFileForm = $("#new-file-form");
     this.nameInput = $("#fileName");
     this.fileInput = $("#fileUpload");
-    // this.linkInput = $("#fileLink");
-    // this.extensionInput = $("#fileExtension");
-    // this.sizeInput = $("#fileSize");
+
     this.placementInput = $("#filePlacement");
     this.newFileBtn = $("#new-file-btn");
     this.newFileForm.addEventListener("submit", (e) => this.createFile(e));
@@ -51,9 +39,15 @@ const fileCreation = {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Error uploading file");
-
-      const data = await res.json();
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage = $create("p", {
+          text: errorData.message || "Unknown error occurred",
+          class: ["error-msg"],
+        });
+        this.newFileForm.appendChild(errorMessage);
+        throw new Error(errorData.message || "Unknown error occurred.");
+      }
 
       // Reset form
       this.nameInput.value = "";

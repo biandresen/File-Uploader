@@ -7,7 +7,6 @@ import asyncErrorHandler from "../utils/asyncErrorHandler.js";
 
 const authController = {
   register: asyncErrorHandler(async (req, res, next) => {
-    console.log("Registering...");
     const { email, password } = matchedData(req);
 
     // check if email already exists, if so send fail response with custom error
@@ -25,19 +24,14 @@ const authController = {
       },
     });
 
-    console.log(user);
-
     // send success response + auto-login via passport (do this from browser)
     res.status(200).json({
       status: "success",
       message: "User registered successfully",
     });
-
-    console.log("Register done: User registered successfully");
   }),
 
   login: (req, res, next) => {
-    console.log("Logging in...");
     passport.authenticate("local", (err, user, message) => {
       if (err) return next(err);
 
@@ -51,7 +45,6 @@ const authController = {
           user: userWithoutPassword,
         });
       });
-      console.log("Login done");
     })(req, res, next);
   },
 
@@ -70,7 +63,6 @@ const authController = {
   },
 
   checkAuth: (req, res) => {
-    console.log("CHECKING AUTH");
     if (req.isAuthenticated()) {
       const { password, ...safeUser } = req.user;
       res.json({ loggedIn: true, user: safeUser }); //No password sent to frontend
