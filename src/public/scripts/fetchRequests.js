@@ -2,7 +2,6 @@ export async function patchRequest(path, body, failMsg) {
   try {
     const res = await fetch(path, {
       method: "PATCH",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,7 +20,6 @@ export async function deleteRequest(path, failMsg) {
   try {
     const response = await fetch(path, {
       method: "DELETE",
-      credentials: "include",
     });
 
     if (!response.ok) throw new Error(failMsg);

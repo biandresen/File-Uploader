@@ -578,6 +578,14 @@ footer > div {
   justify-content: center;
   align-items: center;
 }
+footer > div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+footer a:hover {
+  animation: spin 2s infinite;
+}
 
 @media (min-width: 800px) {
   .wrapper {
@@ -602,11 +610,14 @@ footer > div {
     align-items: center;
     margin-left: 0;
     width: auto;
-    height: auto;
+    height: auto !important;
     overflow: auto;
     transition: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+  #header__nav.open {
+    border-bottom: none;
   }
   #header__nav > ul {
     flex-direction: row;

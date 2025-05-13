@@ -10,7 +10,7 @@ const topFoldersNavBtn = $("#top-folders-nav-btn");
 const dashboardNavBtn = $("#dashboard-nav-btn");
 let isEditing = false;
 
-// topFoldersNavBtn.addEventListener("click", toggleDashboardNav);
+topFoldersNavBtn.addEventListener("click", toggleDashboardNav);
 dashboardNavBtn.addEventListener("click", toggleDashboardNav);
 
 function toggleDashboardNav() {
@@ -26,9 +26,9 @@ function displayNoDataMsg(targetElement, message) {
 }
 
 export async function renderDashboard() {
-  console.log("rendering dashboard");
   await user.getUserContent();
   topFolderList.innerHTML = "";
+  contentList.innerHTML = "";
 
   if (user.data?.length <= 0)
     displayNoDataMsg(topFolderList, "NB! No content yet. Create a new folder with the + button ");
@@ -69,7 +69,6 @@ export async function renderDashboard() {
     });
 
     topFolderShowBtn.addEventListener("click", (e) => {
-      toggleDashboardNav();
       const isActive = topFolderRowWrapper.classList.contains("folder-highlight");
       if (isActive || isEditing) return;
 
@@ -97,10 +96,10 @@ export async function renderDashboard() {
 }
 
 function handleEditName(e, content, isTopFolder) {
-  const existingInput =
-    e.target.parentElement.parentElement.parentElement.previousElementSibling.querySelector("input");
+  // const existingInput =
+  //   e.target.parentElement.parentElement.parentElement.previousElementSibling.querySelector("input");
 
-  if (existingInput) return;
+  // if (existingInput) return;
 
   isEditing = true;
   const isFolder = content?.files ? true : false;

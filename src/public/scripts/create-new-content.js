@@ -24,6 +24,7 @@ const fileCreation = {
   },
   createFile: async function (e) {
     e.preventDefault();
+    this.newFileBtn.disabled = true;
     const loadingSpinner = $create("div", { id: "loading-spinner" });
     this.newFileForm.appendChild(loadingSpinner);
 
@@ -52,6 +53,7 @@ const fileCreation = {
       // Reset form
       this.nameInput.value = "";
       this.fileInput.value = "";
+      this.newFileBtn.disabled = false;
       createNewContent.reRenderFormSelectOptions();
     } catch (err) {
       console.error("Upload failed:", err);
