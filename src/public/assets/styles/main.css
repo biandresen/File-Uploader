@@ -73,7 +73,7 @@ button {
   padding: 5px 0;
   border-radius: var(--r-2xl);
   background-color: var(--color-btn);
-  color: var(--color-text-2);
+  color: var(--color-text-btn);
   font-family: var(--ff-heading);
   font-size: var(--fs-24);
 }

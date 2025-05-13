@@ -36,7 +36,7 @@ export async function renderDashboard() {
   if (contentList && contentList.children.length === 0)
     displayNoDataMsg(contentList, "Select a Top Folder to show content if you have any");
 
-  user.data.forEach((topFolder) => {
+  user.data?.forEach((topFolder) => {
     const topFolderItem = $create("li");
     const topFolderRowWrapper = $create("div", {
       class: ["row-wrapper"],

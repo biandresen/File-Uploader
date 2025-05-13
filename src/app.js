@@ -5,11 +5,11 @@ import "dotenv/config";
 import express from "express";
 import session from "express-session";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
-import { PrismaClient } from "@prisma/client";
 import passport from "./utils/passportConfig.js";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import cors from "cors";
+import prisma from "./db/client.js";
 
 // 3. Routers and middleware
 import authRouter from "./routes/authRouter.js";
@@ -50,7 +50,6 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // 7. Sessions
-const prisma = new PrismaClient();
 app.use(
   session({
     store: new PrismaSessionStore(prisma, {
