@@ -8,6 +8,7 @@ const topFolderList = $("#top-folder-list");
 const contentList = $("#content-list");
 const topFoldersNavBtn = $("#top-folders-nav-btn");
 const dashboardNavBtn = $("#dashboard-nav-btn");
+
 let isEditing = false;
 
 topFoldersNavBtn.addEventListener("click", toggleDashboardNav);

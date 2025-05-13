@@ -4,6 +4,7 @@ import { initInputLabels } from "./inputLabels.js";
 import { renderDashboard } from "./dashboardPage.js";
 import nav from "./nav.js";
 import createNewContent from "./create-new-content.js";
+import { insertUserName } from "./user.js";
 import "./constants.js";
 import "./loginPage.js";
 import "./modal.js";
@@ -22,6 +23,7 @@ export async function initialLoad() {
   initInputLabels("new-folder");
   initRouter();
   isAuthenticated && createNewContent.init();
+  isAuthenticated && insertUserName();
   if (isAuthenticated) renderDashboard();
   await navigate(window.location.pathname);
 }

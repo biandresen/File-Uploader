@@ -1,6 +1,32 @@
 @import url(./reset.css);
 @import url(./utils.css);
 
+#user-name {
+  font-family: var(--ff-body);
+  font-weight: bold;
+  font-size: var(--fs-16);
+}
+.pulse {
+  animation: pulse 2s 1;
+}
+@keyframes pulse {
+  0% {
+    scale: 1;
+  }
+  25% {
+    scale: 1.1;
+  }
+  50% {
+    scale: 1;
+  }
+  75% {
+    scale: 1.1;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
 #loading-spinner {
   position: absolute;
   left: 50%;

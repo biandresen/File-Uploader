@@ -1,12 +1,8 @@
 import { PATH, MSG } from "./constants.js";
 import modal from "./modal.js";
-import { user } from "./user.js";
 import { navigate } from "./router.js";
-import nav from "./nav.js";
 import { resetInputs, createErrorListItems } from "./utils.js";
 import { dataToArray, $ } from "./utils.js";
-import { renderDashboard } from "./dashboardPage.js";
-import createNewContent from "./create-new-content.js";
 
 const loginForm = $("#login-form");
 const loginErrorWrapper = $("#login-error-wrapper");
@@ -42,7 +38,7 @@ export async function handleLogin(e, registerEmail, registerPassword) {
 }
 
 async function handleLoginSuccess() {
-  console.log("LOGIN");
+  console.log("LOGIN SUCCESS");
   loginErrorWrapper.hidden = true;
 
   modal.showTimedModal(2500, MSG.LOGIN_HEADING, MSG.LOGIN_SUCCESS, MSG.LOGIN_REDIRECT);
@@ -51,10 +47,8 @@ async function handleLoginSuccess() {
   // renderDashboard();
   // createNewContent.init();
   setTimeout(() => {
-    navigate(PATH.HOME);
-  }, 1000);
-  setTimeout(() => {
     window.location.reload();
+    window.location.pathname = PATH.HOME;
   }, 2500);
 }
 

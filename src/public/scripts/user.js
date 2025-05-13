@@ -1,6 +1,15 @@
 // user.js
 import { PATH } from "./constants.js";
 import nav from "./nav.js";
+import { $create, $ } from "./utils.js";
+
+const dashboardSection = $("#dashboard-section");
+
+export function insertUserName() {
+  const userName = user.userInfo.email.split("@")[0];
+  const userNameElement = $create("p", { text: "User: " + userName, id: "user-name" });
+  dashboardSection.prepend(userNameElement);
+}
 
 export const user = {
   isAuthenticated: false,

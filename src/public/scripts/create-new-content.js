@@ -120,11 +120,15 @@ const createNewContent = {
       class: ["icon-btn", "create-btn"],
       children: [this.newFileIcon, this.newFileSpan],
     });
-    this.newFileBtn.addEventListener("click", () => this.openNewFileForm());
+    this.newFileBtn.addEventListener("click", () => {
+      if (!$("#top-folder-list").firstElementChild.matches(".no-data-msg")) return this.openNewFileForm();
+      $("#create-folder-btn").classList.add("pulse");
+    });
     this.newFolderIcon = $create("img", { src: ICONPATH.NEW_FOLDER });
     this.newFolderSpan = $create("span", { text: "New Folder" });
     this.newFolderBtn = $create("button", {
       class: ["icon-btn", "create-btn"],
+      id: "create-folder-btn",
       children: [this.newFolderIcon, this.newFolderSpan],
     });
     this.newFolderBtn.addEventListener("click", () => this.openNewFolderForm());
