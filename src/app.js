@@ -62,7 +62,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       secure: process.env.NODE_ENV === "production", // Use 'true' only in production (HTTPS)
-      httpOnly: true,
+      // httpOnly: true,
       // sameSite: "lax", // Cross-origin support
     },
   })
