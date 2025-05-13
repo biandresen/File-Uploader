@@ -50,7 +50,7 @@ async function handleLoginSuccess(data) {
   // nav.updateAuthState(await user.checkAuth()).render();
   // renderDashboard();
   // createNewContent.init();
-  // navigate(PATH.HOME);
+  navigate(PATH.HOME);
   setTimeout(() => {
     window.location.reload();
   }, 2500);
