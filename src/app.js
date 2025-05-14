@@ -106,9 +106,15 @@ app.use("/files", fileRouter);
 app.all("*", (req, res) => {
   res.render("layout");
 });
+
 app.use(errorHandler);
 
 // 12. Start server
 app.listen(port, () => {
   console.log(`Server running in *${process.env.NODE_ENV}* mode on port ${port}...`);
 });
+
+// process.on("uncaughtException", exitHandler(1, "Unexpected Error"));
+// process.on("unhandledRejection", exitHandler(1, "Unhandled Promise"));
+// process.on("SIGTERM", exitHandler(0, "SIGTERM"));
+// process.on("SIGINT", exitHandler(0, "SIGINT"));
