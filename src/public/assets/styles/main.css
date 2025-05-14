@@ -1,11 +1,6 @@
 @import url(./reset.css);
 @import url(./utils.css);
 
-#user-name {
-  font-family: var(--ff-body);
-  font-weight: bold;
-  font-size: var(--fs-16);
-}
 .pulse {
   animation: pulse 2s 1;
 }
@@ -30,6 +25,7 @@
 #loading-spinner {
   position: absolute;
   left: 50%;
+  translate: -25% 0;
   bottom: 30px;
   width: 20px;
   height: 20px;
@@ -43,7 +39,7 @@
     scale: 1;
   }
   50% {
-    scale: 1.6;
+    scale: 1.4;
   }
   100% {
     rotate: 360deg;
@@ -137,6 +133,7 @@ select {
   color: var(--color-text-1);
   font-weight: bold;
 }
+
 .error-wrapper {
   background-color: var(--color-error);
   border-radius: var(--r-3xl);
@@ -199,10 +196,12 @@ select {
   position: relative;
   text-align: unset;
   top: 50%;
+  padding-left: 15px;
 }
 #fileUpload {
   margin-top: 30px;
   padding: 5px;
+  font-size: var(--fs-14);
 }
 
 body {
@@ -227,16 +226,17 @@ header {
   flex: 1;
   display: flex;
   align-items: center;
-  max-height: 70px;
+  max-height: 40px;
   background-color: var(--color-primary);
   z-index: 100;
 }
 header > div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 #header__brand {
-  translate: 0 -5px;
+  /* translate: 0 -5px; */
 }
 #header__brand > a {
   display: flex;
@@ -244,14 +244,17 @@ header > div {
 }
 #header__brand > a > p {
   font-family: var(--ff-heading);
-  font-size: var(--fs-42);
+  font-size: var(--fs-24);
 }
 #header__brand > a > img {
-  width: 80px;
+  width: 40px;
+}
+#menu-btn img {
+  width: 30px;
 }
 #header__nav {
   position: fixed;
-  top: 70px;
+  top: 40px;
   margin-left: -10px;
   width: 100%;
   height: 0px;
@@ -268,13 +271,19 @@ header > div {
   display: flex;
   flex-direction: column;
   padding: 5px 0 10px 10px;
-  font-size: var(--fs-20);
+  font-size: var(--fs-14);
   font-weight: bold;
 }
 #header__nav > ul > a:hover,
 #header__nav > ul > button:hover {
   filter: brightness(1.05);
   text-decoration: underline;
+}
+#header__nav li img {
+  width: 25px;
+}
+#header__nav li {
+  margin-bottom: 5px;
 }
 
 #new-file-form,
@@ -294,6 +303,12 @@ header > div {
   margin: 20px 10px;
   padding: 20px 20px 5px 20px;
   background-color: var(--color-primary);
+}
+#new-folder-section,
+#new-file-section {
+  padding-right: 0;
+  padding-left: 0;
+  min-width: 260px;
 }
 #register-section > h2,
 #login-section > h2,
@@ -394,9 +409,17 @@ header > div {
 #dashboard-section {
   padding-bottom: 20px;
   border-radius: var(--r-3xl);
+  min-height: 80vh;
   margin: 20px 10px;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   background-color: var(--color-primary);
+}
+#user-name {
+  font-family: var(--ff-body);
+  font-weight: bold;
+  opacity: 0.6;
+  font-size: var(--fs-11);
+  translate: 0 12px;
 }
 #dashboard-section > div {
   justify-content: space-between;
@@ -411,14 +434,18 @@ header > div {
 }
 #dashboard-section > div > h2 {
   font-family: var(--ff-heading);
-  font-size: var(--fs-38);
+  font-size: var(--fs-28);
+  margin-bottom: 0;
 }
 #dashboard-nav-btn {
   position: relative;
   rotate: 90deg;
   margin-right: 10px;
-  top: 10px;
+  top: 12px;
   padding: 0;
+}
+#dashboard-nav-btn img {
+  width: 17px;
 }
 #dashboard-nav-btn::after {
   content: "menu";
@@ -432,9 +459,11 @@ header > div {
 }
 #create-new-btn {
   background-color: var(--color-btn) !important;
-  padding: 8px;
+  padding: 5px;
   margin-right: auto !important;
   margin-left: 20px !important;
+  width: 25px;
+  translate: 0 -1px;
 }
 #dashboard-container {
   background-color: var(--color-secondary);
@@ -451,6 +480,7 @@ header > div {
 #content-orders {
   justify-content: space-between;
   padding-bottom: 10px;
+  font-size: var(--fs-14);
 }
 #content-orders div button {
   background-color: transparent;
@@ -498,20 +528,23 @@ header > div {
 
 #dashboard-nav {
   position: fixed;
-  top: 83px;
+  top: 54px;
   translate: -30px 6px;
   z-index: 50;
   padding: 10px;
   font-weight: bold;
-  min-height: 300px;
+  min-height: 80vh;
   width: calc(100% - 40px);
   background-color: var(--color-secondary);
   border-radius: var(--r-xl);
-  box-shadow: 2px 2px 5px var(--color-shadow);
+  box-shadow: 0px 0px 10px var(--color-shadow);
   transition: translate 0.3s ease-in-out;
 }
 #dashboard-nav.closed {
   translate: -150% 50%;
+}
+#dashboard-nav h2 {
+  margin-bottom: 0;
 }
 #dashboard-nav > div {
   justify-content: space-between;
@@ -524,8 +557,13 @@ header > div {
 }
 #dashboard-nav > div > button {
   position: relative;
-  margin-right: 10px;
+  margin-right: 12px;
   rotate: -90deg;
+  padding: 0;
+  translate: 0 -5px;
+}
+#dashboard-nav > div > button > img {
+  width: 17px;
 }
 #dashboard-nav > div > button::before {
   content: "close";
@@ -534,7 +572,7 @@ header > div {
   color: var(--color-text-1);
   font-family: var(--ff-body);
   font-size: var(--fs-14);
-  translate: -5px -10px;
+  translate: -8px -10px;
 }
 #top-folder-list {
   max-height: 60vh;
@@ -586,18 +624,21 @@ header > div {
 .no-data-msg {
   margin: 10px;
   padding: 15px;
-  border: 3px solid var(--color-btn);
+  /* border: 1px solid var(--color-btn); */
   border-radius: var(--r-2xl);
-  font-size: var(--fs-16);
+  font-size: var(--fs-14);
+  font-weight: normal;
+  color: var(--color-btn);
 }
 
 footer {
   flex: 1;
   margin-top: auto;
-  max-height: 70px;
-  min-height: 70px;
+  max-height: 40px;
+  min-height: 40px;
   background-color: var(--color-primary);
   font-weight: bold;
+  font-size: var(--fs-11);
 }
 footer > div {
   display: flex;
@@ -612,10 +653,27 @@ footer > div > div {
 footer a:hover {
   animation: spin 2s infinite;
 }
+footer img {
+  width: 20px;
+}
 
 @media (min-width: 800px) {
   .wrapper {
     max-width: var(--app-width-2xl);
+  }
+  header {
+    max-height: 70px;
+  }
+  #header__brand > a > p {
+    font-size: var(--fs-42);
+  }
+  #header__brand > a > img {
+    width: 80px;
+  }
+
+  footer {
+    max-height: 70px;
+    min-height: 70px;
   }
   input,
   select {
@@ -657,6 +715,9 @@ footer a:hover {
   #header__nav > ul > button:hover {
     filter: brightness(1.05);
     text-decoration: underline;
+  }
+  #header__nav li {
+    margin-bottom: 0;
   }
 
   #register-section,
@@ -700,6 +761,9 @@ footer a:hover {
     background-color: transparent;
     rotate: 90deg;
     margin: 0 5px 5px 0;
+  }
+  #dashboard-nav {
+    min-height: 55vh;
   }
   #dashboard-nav-btn::before {
     content: "";
@@ -766,8 +830,23 @@ footer a:hover {
   }
 
   #dashboard-section {
-    min-height: 85%;
+    min-height: 40vh;
     margin-top: 60px;
+  }
+  #dashboard-section div h2 {
+    margin-bottom: 15px;
+  }
+  #user-name {
+    font-size: var(--fs-16);
+    translate: 0 3px;
+  }
+  #create-new-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    translate: 0 -5px;
   }
   #dashboard-container {
     display: flex;
@@ -828,5 +907,32 @@ footer a:hover {
   }
   #new-folder-form {
     width: 428px;
+  }
+  #header__nav > ul {
+    font-size: var(--fs-20);
+  }
+  #header__nav li img {
+    width: 40px;
+  }
+  .no-data-msg {
+    font-size: var(--fs-16);
+  }
+
+  #content-orders {
+    margin: 8px 0 6px 0;
+    font-size: var(--fs-16);
+  }
+  #dashboard-nav div h2 {
+    margin: 5px 0 15px 0;
+  }
+  #fileUpload {
+    font-size: var(--fs-20);
+  }
+  footer {
+    font-size: var(--fs-20);
+  }
+  footer img {
+    width: 35px;
+    margin-right: 10px;
   }
 }

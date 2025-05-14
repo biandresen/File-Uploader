@@ -99,6 +99,7 @@ const folderCreation = {
 
     this.nameInput.value = "";
     createNewContent.reRenderFormSelectOptions();
+    $("#create-folder-btn").classList.remove("pulse");
   },
 };
 
