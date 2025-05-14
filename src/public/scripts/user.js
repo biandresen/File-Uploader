@@ -7,7 +7,7 @@ const dashboardSection = $("#dashboard-section");
 
 export function insertUserName() {
   const userName = user.userInfo.email.split("@")[0];
-  const userNameElement = $create("p", { text: "User: " + userName, id: "user-name" });
+  const userNameElement = $create("p", { text: "USER: " + userName, id: "user-name" });
   dashboardSection.prepend(userNameElement);
 }
 

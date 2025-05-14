@@ -627,8 +627,8 @@ header > div {
   /* border: 1px solid var(--color-btn); */
   border-radius: var(--r-2xl);
   font-size: var(--fs-14);
-  font-weight: normal;
-  color: var(--color-btn);
+  font-weight: bold;
+  color: var(--color-no-data);
 }
 
 footer {

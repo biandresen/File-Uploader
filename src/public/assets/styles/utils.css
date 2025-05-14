@@ -7,6 +7,7 @@
   --color-btn: #ffa065;
   --color-text-1: #f1f1f1;
   --color-text-2: #1f1f1f;
+  --color-no-data: #1f1f1f;
   --color-text-btn: #1f1f1f;
   --color-text-placeholder: #cfcfcf;
   --color-error: #ff6565;
@@ -58,6 +59,7 @@
   --color-btn: #ffa065;
   --color-text-1: #dfdfdf;
   --color-text-2: #dfdfdf;
+  --color-no-data: #ffa065;
   --color-text-btn: #1f1f1f;
   --color-text-placeholder: #888;
   --color-error: #e74c3c;
