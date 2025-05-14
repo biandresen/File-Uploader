@@ -92,12 +92,12 @@
 button {
   border: none;
   cursor: pointer;
-  padding: 5px 0;
+  padding: 2px 0;
   border-radius: var(--r-2xl);
   background-color: var(--color-btn);
   color: var(--color-text-btn);
   font-family: var(--ff-heading);
-  font-size: var(--fs-24);
+  font-size: var(--fs-20);
 }
 a {
   cursor: pointer;
@@ -105,10 +105,10 @@ a {
 input,
 select {
   border: none;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   background-color: var(--color-secondary);
   border-radius: var(--r-2xl);
-  font-size: var(--fs-16);
+  font-size: var(--fs-14);
   height: 30px;
   font-weight: bold;
   text-indent: 10px;
@@ -122,16 +122,19 @@ input:focus {
 }
 label {
   position: relative;
-  top: 30px;
+  top: 27px;
   left: 12px;
   font-family: var(--ff-heading);
-  font-size: var(--fs-20);
+  font-size: var(--fs-14);
   transition: top 0.6s ease-in-out;
 }
 option,
 select {
   color: var(--color-text-1);
   font-weight: bold;
+}
+.label-placement {
+  translate: 0 5px;
 }
 
 .error-wrapper {
@@ -195,7 +198,7 @@ select {
 #form-modal {
   position: relative;
   text-align: unset;
-  top: 50%;
+  top: 35%;
   padding-left: 15px;
 }
 #fileUpload {
@@ -309,6 +312,8 @@ header > div {
   padding-right: 0;
   padding-left: 0;
   min-width: 260px;
+  margin-bottom: 0;
+  padding-top: 0;
 }
 #register-section > h2,
 #login-section > h2,
@@ -317,7 +322,8 @@ header > div {
 #new-file-section > h2 {
   text-align: center;
   font-family: var(--ff-heading);
-  font-size: var(--fs-42);
+  font-size: var(--fs-28);
+  margin-bottom: 0;
 }
 #register-section > form,
 #login-section > form,
@@ -338,7 +344,7 @@ header > div {
 #login-btn,
 #new-folder-btn,
 #new-file-btn {
-  margin-top: 35px;
+  margin-top: 20px;
   will-change: transform;
 }
 #register-btn:hover,
@@ -936,5 +942,45 @@ footer img {
   footer img {
     width: 35px;
     margin-right: 10px;
+  }
+
+  label {
+    top: 38px;
+    font-size: var(--fs-24);
+  }
+
+  #register-section > h2,
+  #login-section > h2,
+  #about-section > h2,
+  #new-folder-section > h2,
+  #new-file-section > h2 {
+    font-size: var(--fs-42);
+  }
+  input,
+  select {
+    margin-bottom: 10px;
+    font-size: var(--fs-20);
+  }
+  select {
+    margin-top: -10px;
+  }
+  #register-btn,
+  #login-btn,
+  #new-folder-btn,
+  #new-file-btn {
+    margin-top: 45px;
+  }
+  button {
+    padding: 6px 0;
+    font-size: var(--fs-28);
+  }
+  select {
+    margin-top: 10px;
+  }
+  .label-placement {
+    translate: 0 -25px;
+  }
+  #form-modal {
+    top: 40%;
   }
 }
