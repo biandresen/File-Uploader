@@ -410,6 +410,7 @@ header > div {
   padding-bottom: 20px;
   border-radius: var(--r-3xl);
   min-height: 80vh;
+  min-height: 80dvh;
   margin: 20px 10px;
   padding: 0px 20px 20px 20px;
   background-color: var(--color-primary);
@@ -534,6 +535,7 @@ header > div {
   padding: 10px;
   font-weight: bold;
   min-height: 80vh;
+  min-height: 80dvh;
   width: calc(100% - 40px);
   background-color: var(--color-secondary);
   border-radius: var(--r-xl);
